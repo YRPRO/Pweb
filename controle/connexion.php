@@ -8,8 +8,7 @@
 		//verification à ajouter dans le fichier fonctions.php
 		extract($_POST);
 		if(verifLogin($login,$password)){
-			$_SESSION['login'] = $login;
-			$_SESSION['password'] = $password;
+			
 			$req = $db->prepare("SELECT login	 
 							 FROM utilisateur	 
 							 WHERE (login= :login OR email = :login	)
@@ -22,9 +21,10 @@
 	
 			if($uTrouver)	{
 				//mise en place de la variable session
-				$SESSION['login'] = $login;
-				$SESSION['password'] = $password;
-				echo "identification reussi . $login";
+				$_SESSION['login'] = $login;
+				$_SESSION['password'] = $password;
+				header('location:../vue/profil.php');
+
 			}
 			else{	
 				//save_input_data()	;
