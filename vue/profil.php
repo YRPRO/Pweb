@@ -16,16 +16,59 @@
 
   </head>
 <body>
+	<?php
+		require('../modele/dataBase.php');
+		require('../controle/fonction.php');
+		session_start();
+		//verification -> page de profil correct
+		if(empty($_GET['login']))
+			header('location:../vue/profil.php?login='.$_SESSION['login']);
+		else{
+			$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
+			/*var_dump($dataCommmentaire);
+			die();*/
+		}
+	 ?>
 	<?php include('../partie/menu.php'); ?>
-	<?php session_start();?>
-	<div class="panel panel-default">
+	
+  	<div class="col-md-6">
   		<div class="panel-heading">
-    		<h3 class="panel-title">Profil de <?php echo $_SESSION['login']; ?></h3>
-  		</div>
-  		<div class="panel-body">
-  			
-  		</div>
-	</div>
+			<div class="panel panel-default">
+	    		<center><h3 class="panel-title">Profil de <?php echo $_SESSION['login']; ?></h3></center>
+	  		</div>
+	  		<div class="panel-body">
+	  			
+	  		</div>
+		</div>
+  	</div>	
+
+  		
+  	<!--ZONE DE COMMENAIRES -->
+  	<div class="col-md-6">
+  		<div class="panel-heading">
+			<div class="panel panel-default">
+	    		<center><h3 class="panel-title">Commentaires Zone</h3></center>
+	  		</div>
+	  		<div class="panel-body">
+
+				<!--Boucle d'affichage des commentaire -->	
+				<?php 
+					for($i = 0;$i<count($dataCommmentaire);$i++){
+						?>
+						<div class="panel panel-default">
+	  						<div class="panel-heading">
+	    						<center><h3 class="panel-title"> <?php echo $dataCommmentaire[$i]->dateCreation ."&nbsp;&nbsp;&nbsp;&nbsp". $dataCommmentaire[$i]->libelleTheme."&nbsp;&nbsp;&nbsp;&nbsp" . $dataCommmentaire[$i]->typeRestriction; ?></h3></center>
+	  						</div>
+	  						<div class="panel-body">
+	    						<center><p><?php echo $dataCommmentaire[$i]->commentaire; ?></p></center>
+	  						</div>
+						</div>
+				<?php  } ?>
+	  				
+
+	  		</div>
+		</div>
+  	</div>
 </body>
 </html>
 
