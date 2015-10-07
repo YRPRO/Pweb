@@ -50,7 +50,25 @@
 	    		<center><h3 class="panel-title">Commentaires Zone</h3></center>
 	  		</div>
 	  		<div class="panel-body">
-
+				<!--Zone de redaction de commentaire -->
+				 <div class="form-group">
+				 	<div class="panel panel-default">
+	    			<center><h3 class="panel-title">Nouveau commentaire</h3></center>
+	  					<div class="form-group ">
+	 						<input class="form-control input-lg" id="inputlg" type="text">
+						</div>
+						<div class="btn-group">
+  							<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							    Large button <span class="caret"></span>
+							 </button>
+							  <ul class="dropdown-menu">
+							    <li>test</li>
+							    <li>test2</li>
+							    <li>test2</li>
+							  </ul>
+						</div>
+					</div>
+				</div>
 				<!--Boucle d'affichage des commentaire -->	
 				<?php 
 					for($i = 0;$i<count($dataCommmentaire);$i++){
