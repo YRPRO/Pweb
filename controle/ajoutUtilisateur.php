@@ -30,11 +30,10 @@ $errors[]="Votre mot de passe est trop court (Minmum 3 caractères)";
 	}	
 
 		if (count($errors)==0) {
-                    	session_start();
-		              $_SESSION['nom'] = $nom;
-		              $_SESSION['prenom'] = $prenom;
+                    
                       
                     Inscription($login,$nom,$prenom,$sexe,$jour,$mois,$annee,$email,$pwd);
+                    header('location:../vue/profil.php?login=' . $login);
 
 				}
 	

@@ -1,39 +1,50 @@
-
 <!DOCTYPE html>
 <html lang="fr">
-  
 
- <!--On fait ici appel à l'entete et le menu de notre site.Cette méthode nous permet 
- de rentre le code plus lisible . Nous ferons appel a ses fichier sur chaque page.-->
-     <?php 
 
-    include("../partie/entete.php");
-    include("../partie/menu.php");
-    ?>
- <body>
-    <div class="container">
-       <div class="jumbotron">
+<!--On fait ici appel à l'entete et le menu de notre site.Cette méthode nous permet 
+de rentre le code plus lisible . Nous ferons appel a ses fichier sur chaque page.-->
+   <?php 
+  include("../partie/entete.php");
+  include("../partie/menu.php");
+  ?>
+<body>
+  <div class="container">
+     <div class="jumbotron">
 
-      <!------------------------------------------------ -->
+    <!------------------------------------------------ -->
+<?php
+if (isset($errors) && count ($errors) != 0){
+echo '<div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <strong>Attention! : </strong><br>';
+  foreach ($errors as $error){
+    echo $error.'</br>';
+  }
+  echo'</diV>';
 
-  <h2>Inscription</h2>
-  <form method="post" action ="../controle/ajoutUtilisateur.php">
+  }
+ 
+?>
 
+<h2>Inscription</h2>
+<form method="post" action ="../controle/ajoutUtilisateur.php">
+
+  <div class="form-group">
+    <label for="login">Login:</label>
+    <input type="text" class="form-control" id="login" name="login" placeholder="Entrer votre login" required = "required" >
+  </div>
     <div class="form-group">
-      <label for="login">Login:</label>
-      <input type="text" class="form-control" id="login" name="login" placeholder="Entrer votre login" required = "required" >
-    </div>
-      <div class="form-group">
-      <label for="nom">Nom:</label>
-      <input type="text" class="form-control" id="nom" name="nom" placeholder="Entrer votre nom" required = "required">
-    </div>
-      <div class="form-group">
-      <label for="prenom">Prenom:</label>
-      <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Entrer votre prenom" required = "required">
-    </div>
-    <!--------------------------------------------- -->
- <div class="form-group">
-<label for="date_naissance">Date de naisssance : </label>
+    <label for="nom">Nom:</label>
+    <input type="text" class="form-control" id="nom" name="nom" placeholder="Entrer votre nom" required = "required">
+  </div>
+    <div class="form-group">
+    <label for="prenom">Prenom:</label>
+    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Entrer votre prenom" required = "required">
+  </div>
+  <!--------------------------------------------- -->
+<div class="form-group">
+<label for="date_naissance"><span class="glyphicon glyphicon-calendar"></span> Date de naisssance : </label>
 <select name="jour">
 <option value="0">Jour</option>
 <?php
@@ -59,48 +70,50 @@ echo '<option value="' . $i . '">' . $i . '</option>';
 ?>
 </select> 
 
- </div>
+</div>
 <!---------------------------------------------------- -->
 
 <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" name ="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Entrer votre email"required = "required">
-    </div>
+    <label for="email"><span class="glyphicon glyphicon-envelope"></span>
+  </span> Email:</label>
+    <input type="email" class="form-control" id="email" name ="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Entrer votre email"required = "required">
+  </div>
 
 <div class="form-group">
-<label for="pwd">Mot de passe: </label>
-    <input type="password" class="form-control"id="pwd"  name ="pwd" required = "required" type="hidden">
+<label for="pwd"><span class="glyphicon glyphicon-lock"></span>Mot de passe: </label>
+  <input type="password" class="form-control"id="pwd"  name ="pwd" required = "required" type="hidden">
 
-    </div>
+  </div>
 <div class="form-group">
-<label for="pwd_confirm">Confirmation mot de passe: </label>
-    <input type="password" class="form-control"id="pwd_confirm"  name ="pwd_confirm" required = "required" type="hidden">
+<label for="pwd_confirm"><span class="glyphicon glyphicon-lock"></span> Confirmation mot de passe: </label>
+  <input type="password" class="form-control"id="pwd_confirm"  name ="pwd_confirm" required = "required" type="hidden">
 
-    </div>
- 
+  </div>
 
-      <label for="sexe">Sexe:</label>
-      <select class="form-control" id="sexe" name="sexe">
-         <option value="F" name="sexe">Femme</option>
-        <option value="H" name="sexe">Homme</option>
-      </select>
+
+    <label for="sexe">Sexe:</label>
+    <select class="form-control" id="sexe" name="sexe">
+       <option value="F" name="sexe">Femme</option>
+      <option value="H" name="sexe">Homme</option>
+    </select>
 <br>
-      <button type="submit" class="btn btn-primary" name="valide">Valide</button>
+    <button type="submit" class="btn btn-primary" name="valide">Valide <span class="glyphicon glyphicon-ok"></span></button>
+
+  </div>
+
+ </form>
+
+
+ <!------------------------------------------------ -->
+
+
 
     </div>
-  
-   </form>
-
- 
-   <!------------------------------------------------ -->
-
-
-
-      </div>
 </div>
-    </div><!-- /.container -->
+  </div><!-- /.container -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="vue/js/bootstrap.min.js"></script>
-  </body>
+<?php
+include('../partie/footer.php');
+?>
+</body>
 </html>
