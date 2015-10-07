@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
   
@@ -29,12 +28,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">Social Book </a>
+          <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-globe"></span> Social Book</a>
           
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Accueil</a></li>
+            <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
             <li><a href="#about">A propos</a></li>
             <li><a href="#contact">Contact</a></li>
 
@@ -46,14 +45,14 @@
 
       <div class="jumbotron">
         
-        <h1>Bienvenue sur Social Book.
+        <h1>Bienvenue sur Social Book.<span class="glyphicons glyphicons-group"></span>
         </h1>
         <p class="lead">Liker , commentez, et publiez ! Social book est un réseau social qui vous permet de rencontrer d'autre utilisateur afin d'élargir votre cercle d'amis , trouver un job... </p><br>
        
-      <a href="vue/inscription.php"><button type="button" class="btn btn-info btn-lg">S'inscrire</button>  </a>
+      <a href="vue/inscription.php"><button type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span> S'inscrire</button>  </a>
         
  <!-- Modal est compris dans boostrap il nous permet d'inserer un bouton qui au clic ouvrira une petite fenètre qui va nous permettre de nous loger -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Connexion</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Connexion</button>
 
  
   <div class="modal fade" id="myModal" role="dialog">
@@ -67,7 +66,8 @@
         </div>
         <div class="modal-body">
           <!-- Insertion du formulaire d'identification-->
-    <form role="form" method="post" action ="./controle/connexion.php">
+
+  <form role="form" method="post" action ="./controle/connexion.php">
     <div class="form-group">
       <label for="login" >Login:</label>
       <input type="text" class="form-control" id="login" name="login" placeholder="Entrer votre identifiant">
@@ -85,15 +85,37 @@
       </div>
       
     </div>
-  </div>
   <!-- fin du modal-->
+  </div>
+ 
   
+<div id="section1" class="container-fluid">
+  <h1 class="text-center">Partager</h1>
+  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+</div>
 
-      </div>
-        
+
+<div id="section2" class="container-fluid">
+  <h1 class="text-center">Commenter</h1>
+  
+  <blockquote>
+    <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
+    <footer>From WWF's website</footer>
+  </blockquote>
+  <br>
+
+</div>
+<div id="section3" class="container-fluid">
+  <h1 class="text-center">Liker</h1>
+  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+</div>
+</br>
+
     </div><!-- /.container -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <script src="vue/js/bootstrap.min.js"></script>
+<?php
+include('partie/footer.php');
+?>
   </body>
 </html>
