@@ -7,12 +7,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">Social Book </a>
+          <a class="navbar-brand" href="../index.php"><span class="glyphicon glyphicon-globe"></span> Social Book </a>
           
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../index.php">Accueil</a></li>
+            <li class="active"><a href="../index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
             <li><a href="#about">A propos</a></li>
             <li><a href="#contact">Contact</a></li>
 
