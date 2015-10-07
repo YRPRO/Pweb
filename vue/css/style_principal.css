@@ -1,6 +1,33 @@
 body{
   padding-top: 80px;
   /*background-color: #F2F0EB;*/
-
+position: relative; 
 }
+ #section1 {padding-top:50px;height:200px;color: #fff; background-color: #009688;}
+  #section2 {padding-top:10px;height:300px;color: #000000; background-color: #F3EDD3;}
+    #section3 {padding-top:50px;height:200px;color: #fff; background-color: #F22F4F;}
 
+
+
+/*Footer de nos page */
+#footer {
+  height: 60px;
+  background-color: #130F12;
+  margin-top:50px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+/*Scroll top ( la fleche qui nous permet de remonter vers le gaut de la page )*/
+.scroll-top {
+   position:fixed;
+   bottom:0;
+   right:6%;
+   z-index:100;
+   background: #ffcc33;
+   font-size:24px;
+   border-top-left-radius:3px;
+   border-top-right-radius:3px;
+}
+.scroll-top a:link,.scroll-top a:visited {
+  color:#222;
+} 
