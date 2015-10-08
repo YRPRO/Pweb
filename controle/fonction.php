@@ -34,7 +34,7 @@
 		return $dataCom;
 	}
 
-	function recupCommentaire(){
+	function recupCommentairePublic(){
 		global $db;
 		$q = $db->prepare('SELECT c.commentaire , c.dateCreation , t.libelleTheme , r.typeRestriction , c.nbLike,c.nbunLike,c.login
 							 FROM commentaire c,theme t , restriction r 
@@ -60,6 +60,97 @@
 		return $dataLogin;
 
 	}
+	//fonction de recuperation du meilleur commentaire (le plus liker)
+	function recupMeilleurCom(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT MAX(c.nbLike) ,c.commentaire , c.dateCreation , t.libelleTheme , r.typeRestriction , c.nbLike,c.nbunLike,c.login
+							 FROM commentaire c,theme t , restriction r 
+							 WHERE c.idTheme = t.idTheme 
+							AND   c.idRestriction = r.idRestriction
+							');
+		$q->execute();
+		$dataMeilleurcom = $q->fetchALL(PDO::FETCH_OBJ);
 
+		$q->closeCursor();	
+		return $dataMeilleurcom;
+	}
+	//fonction de recuperation du nombre d'utilisateur (de comptes)
+	function recupNbUtilsateur(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT COUNT(login)
+							 FROM utilisateur
+							');
+		$q->execute();
+		$dataNbUtilisateur = $q->fetchALL(PDO::FETCH_OBJ);
 
+		$q->closeCursor();	
+		return $dataNbUtilisateur;
+	}
+	//fonction de recuperation du nombre de commentaires
+	function recupNbcommentaire(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT COUNT(idCommentaire)
+							 FROM commentaire
+							');
+		$q->execute();
+		$dataNbCom = $q->fetchALL(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataNbCom;
+	}
+	//fonction de recuperation du theme le plus utiliser
+	function recupMeilleurTheme(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT COUNT(c.idTheme),t.libelleTheme
+							 FROM commentaire c,theme t
+							 WHERE c.idTheme = t.idTheme
+							 GROUP BY c.idTheme
+							');
+		$q->execute();
+		$dataMeilleurTheme = $q->fetch(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataMeilleurTheme;
+	}
+	//fonction de recuperation de l'utilisateur le plus actif(qui à poster le plus de commentaires)
+	function recupUtilisateurPlusActif(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT COUNT(c.login), u.login
+							 FROM commentaire c,utilisateur u
+							 WHERE c.login = u.login
+							 GROUP BY c.login
+							');
+		$q->execute();
+		$dataUtilisateurPlusActif = $q->fetch(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataUtilisateurPlusActif;
+	}
+	//fonction de recuperation de la restiction d'un commentaire
+	function recupRestrictionCom($idCommentaire){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT r.typeRestriction
+							 FROM commentaire c, restriction r
+							 WHERE c.idRestriction = r.idRestriction 
+							 AND c.idCommentaire = ? 
+							  ');
+		$q->execute([$idCommentaire]);
+		$dataResCom = $q->fetchALL(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataResCom;
+	}
+	//fonction de recuperation des amis d'un utilisateur
+	function recupAmisUtilisateur($login){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT c.amis
+							 FROM contact c
+							 WHERE c.utilisateur = ? 
+							  ');
+		$q->execute([$login]);
+		$dataAmis = $q->fetchALL(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataAmis;
+	}
 ?>
