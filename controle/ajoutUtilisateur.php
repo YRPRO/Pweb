@@ -11,12 +11,14 @@ $errors=[];
 	extract($_POST); 
 					
 	if(mb_strlen($login) > 15 ){
-$errors[]="Votre login est trop long (Maximum 15 caractères";
+$errors[]="Votre login est trop long (Maximum 15 caractères)";
 }
 if(mb_strlen($login)<3){
-$errors[]="Votre login est trop court (Minimum 3 caractères";
+$errors[]="Votre login est trop court (Minimum 3 caractères)";
 }	
-
+if (verifPresent($login)){
+	$errors[]="Le login existe deja";
+}
 /*-----------A activer a la fin du projet sinon c la merdasse pour les test
 if (filter_var($email,FILTER_VALIDATE_EMAIL)){
 	$errors="Votre adresse email n'est pas valide";
@@ -27,6 +29,7 @@ $errors[]="Votre mot de passe est trop court (Minmum 3 caractères)";
 	if($pwd != $pwd_confirm){
 		$errors[]="Les deux mot de passe ne sont pas identiques";
 	}
+
 	}	
 
 		if (count($errors)==0) {

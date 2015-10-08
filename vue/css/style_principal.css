@@ -3,11 +3,14 @@ body{
   /*background-color: #F2F0EB;*/
 position: relative; 
 }
- #section1 {padding-top:50px;height:200px;color: #fff; background-color: #009688;}
-  #section2 {padding-top:10px;height:300px;color: #000000; background-color: #F3EDD3;}
-    #section3 {padding-top:50px;height:200px;color: #fff; background-color: #F22F4F;}
 
+     #section1 {padding-top:50px;height:300px;color: #fff; background-color: #00C499;}
+  #section2 {padding-top:10px;height:400px;color: #000000; background-color: #264663;}
+    #section3 {padding-top:50px;height:300px;color: #fff; background-color: #EC4449;}
 
+#titreCom{
+  color:#fff;
+}
 
 /*Footer de nos page */
 #footer {
@@ -31,3 +34,14 @@ position: relative;
 .scroll-top a:link,.scroll-top a:visited {
   color:#222;
 } 
+
+.wrap { 
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow-y:auto;
+}
+/*Pour les commentaire qui sont dans index.php*/
+#scroll-com{margin:auto; height:200pt;overflow:auto} 

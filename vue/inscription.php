@@ -19,7 +19,7 @@ echo '<div class="alert alert-danger">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <strong>Attention! : </strong><br>';
   foreach ($errors as $error){
-    echo $error.'</br>';
+    echo '- '.$error.'</br>';
   }
   echo'</diV>';
 

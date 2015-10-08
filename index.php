@@ -49,10 +49,10 @@
         </h1>
         <p class="lead">Liker , commentez, et publiez ! Social book est un réseau social qui vous permet de rencontrer d'autre utilisateur afin d'élargir votre cercle d'amis , trouver un job... </p><br>
        
-      <a href="vue/inscription.php"><button type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-edit"></span> S'inscrire</button>  </a>
+      <a href="vue/inscription.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> S'inscrire</button>  </a>
         
  <!-- Modal est compris dans boostrap il nous permet d'inserer un bouton qui au clic ouvrira une petite fenètre qui va nous permettre de nous loger -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Connexion</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Connexion</button>
 
  
   <div class="modal fade" id="myModal" role="dialog">
@@ -91,18 +91,42 @@
   
 <div id="section1" class="container-fluid">
   <h1 class="text-center">Partager</h1>
+
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
 </div>
 
 
 <div id="section2" class="container-fluid">
+  <div id="titreCom">
   <h1 class="text-center">Commenter</h1>
+  </div>
+  <div id="scroll-com"> 
+  <?php
+  require('modele/dataBase.php');
+  require('controle/fonction.php');
+  $coms= recupCommentaire();
+//  var_dump($test);
+  //$test[0]->commentaire;
+      
+          for($i = 0;$i<count($coms);$i++){
+            ?>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                  <center><h3 class="panel-title"> <?php echo 'Ecrit par : '.$coms[$i]->login.'  - thème('.$coms[$i]->libelleTheme.')  -'  ;  ?></h3></center>
+                </div>
+                <div class="panel-body">
+                  <center><p><?php echo $coms[$i]->commentaire; ?></p></center>
+                </div>
+          <div class="panel-footer">
+                  <center><p><?php echo $coms[$i]->dateCreation; ?></p></center>
+          </div>
+
+            </div>
+        <?php  } ?>
+</div>
   
-  <blockquote>
-    <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
-    <footer>From WWF's website</footer>
-  </blockquote>
   <br>
 
 </div>
@@ -110,6 +134,7 @@
   <h1 class="text-center">Liker</h1>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+
 </div>
 </br>
 
