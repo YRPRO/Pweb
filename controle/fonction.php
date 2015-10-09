@@ -153,4 +153,43 @@
 		$q->closeCursor();	
 		return $dataAmis;
 	}
+	//fonction recuperation nb de like pour un com
+	function recupNbLike($idCommentaire){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT c.nbLike
+							 FROM commentaire c
+							 WHERE c.idCommentaire = ?
+							  ');
+		$q->execute([$idCommentaire]);
+		$dataNbLike = $q->fetch(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataNbLike;
+	}
+	//fonction recuperation nb de unlike pour un com
+	function recupUnNbLike($idCommentaire){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT c.nbUnLike
+							 FROM commentaire c
+							 WHERE c.idCommentaire = ?
+							  ');
+		$q->execute([$idCommentaire]);
+		$dataUnNbLike = $q->fetch(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataUnNbLike;
+	}
+	//fonction recuperation nb de theme
+	function recupNbTheme(){
+		require('../modele/dataBase.php');
+		$q = $db->prepare('SELECT COUNT(t.idTheme)
+							 FROM theme t
+							  ');
+		$q->execute();
+		$dataNbTheme = $q->fetch(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataNbTheme;
+	}
+	
 ?>

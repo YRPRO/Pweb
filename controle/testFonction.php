@@ -6,7 +6,7 @@
 <body>
 	<?php 	
 		require('fonction.php');
-		$test = recupAmisUtilisateur('a');
+		$test = recupNbTheme();
 		var_dump($test);
 		die();
 	?>
