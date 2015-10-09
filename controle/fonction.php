@@ -1,4 +1,4 @@
-<?php 
+0<?php 
 	function verifLogin($login,$password){
 		htmlspecialchars($login);
 		htmlspecialchars($password);
@@ -27,7 +27,7 @@
 							');
 		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
 		$q->execute([$login]);
-		$dataCom = $q->fetchALL(PDO::FETCH_BOTH);
+		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
 		$q->closeCursor();
 		return $dataCom;
 	}
@@ -42,7 +42,7 @@
 							');
 		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
 		$q->execute(['public']);
-		$dataCom = $q->fetchALL(PDO::FETCH_BOTH);
+		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
 		$q->closeCursor();
 		return $dataCom;
 	}
@@ -67,7 +67,7 @@
 							AND   c.idRestriction = r.idRestriction
 							');
 		$q->execute();
-		$dataMeilleurcom = $q->fetchALL(PDO::FETCH_BOTH);
+		$dataMeilleurcom = $q->fetchALL(PDO::FETCH_OBJ);
 
 		$q->closeCursor();	
 		return $dataMeilleurcom;
@@ -79,8 +79,8 @@
 							 FROM utilisateur
 							');
 		$q->execute();
-		$dataNbUtilisateur = $q->fetchALL(PDO::FETCH_BOTH);
-
+		$tmp = $q->fetch();
+		$dataNbUtilisateur = $tmp[0];
 		$q->closeCursor();	
 		return $dataNbUtilisateur;
 	}
@@ -91,8 +91,8 @@
 							 FROM commentaire
 							');
 		$q->execute();
-		$dataNbCom = $q->fetchALL(PDO::FETCH_BOTH);
-
+		$tmp = $q->fetch();
+		$dataNbCom = $tmp[0];
 		$q->closeCursor();	
 		return $dataNbCom;
 	}
@@ -105,10 +105,9 @@
 							 GROUP BY c.idTheme
 							');
 		$q->execute();
-		$dataMeilleurTheme = $q->fetch(PDO::FETCH_BOTH);
-
+		$dataMeilleurTheme = $q->fetchAll(PDO::FETCH_OBJ);
 		$q->closeCursor();	
-		return $dataMeilleurTheme;
+		return $dataMeilleurTheme[0]->libelleTheme;
 	}
 	//fonction de recuperation de l'utilisateur le plus actif(qui à poster le plus de commentaires)
 	function recupUtilisateurPlusActif(){
@@ -119,10 +118,10 @@
 							 GROUP BY c.login
 							');
 		$q->execute();
-		$dataUtilisateurPlusActif = $q->fetch(PDO::FETCH_BOTH);
+		$dataUtilisateurPlusActif = $q->fetchAll(PDO::FETCH_OBJ);
 
 		$q->closeCursor();	
-		return $dataUtilisateurPlusActif;
+		return $dataUtilisateurPlusActif[0]->login;
 	}
 	//fonction de recuperation de la restiction d'un commentaire
 	function recupRestrictionCom($idCommentaire){
@@ -133,10 +132,10 @@
 							 AND c.idCommentaire = ? 
 							  ');
 		$q->execute([$idCommentaire]);
-		$dataResCom = $q->fetchALL(PDO::FETCH_BOTH);
+		$dataResCom = $q->fetchALL(PDO::FETCH_OBJ);
 
 		$q->closeCursor();	
-		return $dataResCom;
+		return $dataResCom[0]->typeRestriction;
 	}
 	//fonction de recuperation des amis d'un utilisateur
 	function recupAmisUtilisateur($login){
@@ -146,7 +145,7 @@
 							 WHERE c.utilisateur = ? 
 							  ');
 		$q->execute([$login]);
-		$dataAmis = $q->fetchALL(PDO::FETCH_BOTH);
+		$dataAmis = $q->fetchALL(PDO::FETCH_OBJ);
 
 		$q->closeCursor();	
 		return $dataAmis;
@@ -159,34 +158,32 @@
 							 WHERE c.idCommentaire = ?
 							  ');
 		$q->execute([$idCommentaire]);
-		$dataNbLike = $q->fetch(PDO::FETCH_BOTH);
-
+		$tmp = $q->fetch();
+		$dataNbLike = $tmp[0];
 		$q->closeCursor();	
 		return $dataNbLike;
 	}
 	//fonction recuperation nb de unlike pour un com
-	function recupUnNbLike($idCommentaire){
+	function recupNbUnLike($idCommentaire){
 		global $db;
 		$q = $db->prepare('SELECT c.nbUnLike
 							 FROM commentaire c
 							 WHERE c.idCommentaire = ?
 							  ');
 		$q->execute([$idCommentaire]);
-		$dataUnNbLike = $q->fetch(PDO::FETCH_BOTH);
-
+		$tmp = $q->fetch();
+		$dataNbUnLike = $tmp[0];
 		$q->closeCursor();	
-		return $dataUnNbLike;
+		return $dataNbUnLike;
 	}
 	//fonction recuperation nb de theme
 	function recupNbTheme(){
 		global $db;
-		$q = $db->prepare('SELECT COUNT(t.idTheme)
-							 FROM theme t
-							  ');
-		$q->execute();
-		$dataNbTheme = $q->fetch(PDO::FETCH_BOTH);
-
-		$q->closeCursor();	
+		$requete = 'SELECT COUNT(t.idTheme)
+					 FROM theme t';
+		$data = $db->query($requete);
+		$tmp = $data->fetch();
+		$dataNbTheme = $tmp[0];
 		return $dataNbTheme;
 	}
 	//fonction ajout d'un like pour un commentaire
@@ -194,6 +191,18 @@
 		global $db;
 		$q = $db->prepare('UPDATE commentaire c
         					SET nbLike=nbLike+1
+        					WHERE  c.idCommentaire = ? '
+        					);
+		$q->execute([$idCommentaire]);
+		//$dataNbTheme = $q->fetch(PDO::FETCH_BOTH);
+
+		$q->closeCursor();	
+	}
+	//fonction ajout d'un unlike pour un commentaire
+	function ajoutUnLike($idCommentaire){
+		global $db;
+		$q = $db->prepare('UPDATE commentaire c
+        					SET nbUnLike=nbUnLike+1
         					WHERE  c.idCommentaire = ? '
         					);
 		$q->execute([$idCommentaire]);
