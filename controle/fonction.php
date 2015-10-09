@@ -210,4 +210,17 @@
 
 		$q->closeCursor();	
 	}
+	//recuperation des info d'un utilisateur
+	function recupInfoUtilisateur($login){
+		global $db;
+		$q = $db->prepare('SELECT *
+							 FROM utilisateur u 
+							 WHERE u.login = ?
+							');
+		$q->execute([$login]);
+		$dataUtilisateur = $q->fetchALL(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataUtilisateur;
+	}
 ?>
