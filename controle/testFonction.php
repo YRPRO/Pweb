@@ -7,8 +7,9 @@
 	<?php 	
 		require('fonction.php');
 		$test = recupNbTheme();
-		var_dump($test);
-		die();
+		//var_dump($test);
+		//die();
+		echo $test[0];
 	?>
 
 </body>
