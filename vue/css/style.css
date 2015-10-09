@@ -1,50 +1,5 @@
-body{
-  padding-top: 50px;
-  /*background-color: #F2F0EB;*/
-position: relative; 
-}
+﻿
 
-     #section1 {padding-top:50px;height:300px;color: #fff; background-color: #00C499;}
-  #section2 {padding-top:10px;height:400px;color: #000000; background-color: #264663;}
-    #section3 {padding-top:50px;height:300px;color: #fff; background-color: #EC4449;}
-
-#titreCom{
-  color:#fff;
-}
-
-/*Footer de nos page */
-#footer {
-  height: 60px;
-  background-color: #130F12;
-  
-  padding-top:20px;
-  padding-bottom:20px;
-}
-/*Scroll top ( la fleche qui nous permet de remonter vers le gaut de la page )*/
-.scroll-top {
-   position:fixed;
-   bottom:0;
-   right:6%;
-   z-index:100;
-   background: #ffcc33;
-   font-size:24px;
-   border-top-left-radius:3px;
-   border-top-right-radius:3px;
-}
-.scroll-top a:link,.scroll-top a:visited {
-  color:#222;
-} 
-
-.wrap { 
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    overflow-y:auto;
-}
-/*Pour les commentaire qui sont dans index.php*/
-#scroll-com{margin:auto; height:200pt;overflow:auto} 
 @import url(http://fonts.googleapis.com/css?family=Roboto); /* GOOGLE FREE FONTS */
 
 body {
@@ -65,17 +20,23 @@ section {
     padding-bottom: 60px;
 }
 
+/*================================
+    HOME SECTION STYLES
+==================================*/
+
+/*STYLE OF BACKGROUND IMAGE*/
 #home {
-    background: url(../image/home4.jpg) no-repeat center center; 
+    background: url(../image/home4.jpg) no-repeat center center; /*Full Witdth background image*/
     padding: 0;
     -webkit-background-size: cover;
     background-size: cover;
     -moz-background-size: cover;
     min-height: 600px;
 }
+    /*STYLE FOR OVERLAY CLASS - WHICH IS ABOVE IMAGE WITH OPACITY/TRANSPARENCY 0.75*/
     #home .overlay {
         padding-top: 90px;
-        background-color: rgba(0, 0, 0, 0.70); 
+        background-color: rgba(0, 0, 0, 0.70); /*.75 opacity of the color so that background image is visible*/
         min-height: 600px;
         color: #fff;
     }
@@ -86,13 +47,17 @@ section {
         font-size: 130px;
         font-family: 'Browallia New';
     }
+/*SMPLE CLASS TO ADJUST SECTION PADDING & HEIGHT*/
 
+/*CLASS TO FORMAT TEXT*/
 .p-cls {
     padding-top: 30px;
     padding-bottom: 50px;
 }
 
-
+/*======================================
+    PARALLAX LIKE / STATS SECTION STYLES
+=========================================*/
 
 .parallax-like {
     background: url(../image/home3.jpg) no-repeat center center; /* DEFINE IMAGE PATH CAREFULLY*/
