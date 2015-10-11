@@ -1,4 +1,4 @@
-0<?php 
+<?php 
 	function verifLogin($login,$password){
 		htmlspecialchars($login);
 		htmlspecialchars($password);
