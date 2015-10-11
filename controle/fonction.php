@@ -187,26 +187,29 @@
 		return $dataNbTheme;
 	}
 	//fonction ajout d'un like pour un commentaire
-	function ajoutLike($idCommentaire){
+	function ajoutLike($login,$idCommentaire){
 		global $db;
 		$q = $db->prepare('UPDATE commentaire c
         					SET nbLike=nbLike+1
         					WHERE  c.idCommentaire = ? '
         					);
 		$q->execute([$idCommentaire]);
-		//$dataNbTheme = $q->fetch(PDO::FETCH_BOTH);
+		//ajout d'un enregistrement dans la table likeparutilisateur(pour les future restriction)
+		ajoutBlocageLike($login,$idCommentaire);
+
 
 		$q->closeCursor();	
 	}
 	//fonction ajout d'un unlike pour un commentaire
-	function ajoutUnLike($idCommentaire){
+	function ajoutUnLike($login,$idCommentaire){
 		global $db;
 		$q = $db->prepare('UPDATE commentaire c
         					SET nbUnLike=nbUnLike+1
         					WHERE  c.idCommentaire = ? '
         					);
 		$q->execute([$idCommentaire]);
-		//$dataNbTheme = $q->fetch(PDO::FETCH_BOTH);
+		//ajout d'un enregistrement dans la table likeparutilisateur(pour les future restriction)
+		ajoutBlocageLike($login,$idCommentaire);
 
 		$q->closeCursor();	
 	}
@@ -223,4 +226,45 @@
 		$q->closeCursor();	
 		return $dataUtilisateur;
 	}
+	//recuperation des commentaire des amis d'un utilisateur
+	function recupComAmis($login){
+		global $db;
+		$q = $db->prepare('SELECT *
+							 FROM  commentaire c
+							 WHERE c.login IN (SELECT a.amis
+							 					FROM contact a
+							 					WHERE a.utilisateur = ?)
+							');
+		$q->execute([$login]);
+		$dataComAmis = $q->fetchALL(PDO::FETCH_OBJ);
+
+		$q->closeCursor();	
+		return $dataComAmis;
+	}
+	//fonction permettant l'ajout d'un enregistrement dans la table like par utilisteur
+	//pour qu'un utilisateur ne puisse pas liker plusieurs fois le meme commentaire
+	function ajoutBlocageLike($login,$idCommentaire){
+		global $db;
+		$q = $db->prepare("INSERT INTO likeparutilisateur (idCommentaire,login) 
+							VALUES (?,?)
+        					");
+		$q->execute([$idCommentaire,$login]);
+		//$q->closeCursor();
+	}
+	//fonction de verification pour savoir si un utilisateur à déjà liker ou unliker un commentaire
+	function aDejaLiker($login,$idCommentaire){
+		global $db;
+		$req = $db->prepare("SELECT l.idLikeParUtilisateur 	 
+							 FROM likeparutilisateur l	 
+							 WHERE l.login = ? AND l.idCommentaire = ?
+							 ");
+			$req->execute([$login,$idCommentaire]);		
+			$reponse = $req->RowCount()	;
+			//reponse en fonction du resultat de la requete au dessus
+			if($reponse > 0)
+				return true;
+			else
+				return false;
+	}
+
 ?>
