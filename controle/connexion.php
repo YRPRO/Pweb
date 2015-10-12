@@ -23,7 +23,7 @@
 				//mise en place de la variable session
 				$_SESSION['login'] = $login;
 				$_SESSION['password'] = $password;
-				header('location:../vue/profil.php?login='.$_SESSION['login']);
+				header('location:../vue/profil.php');
 
 			}
 			else{	

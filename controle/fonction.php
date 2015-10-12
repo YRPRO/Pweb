@@ -266,5 +266,78 @@
 			else
 				return false;
 	}
+	//fonction de modification d'un commentaire
+	function modifCommentaire($idCommentaire,$nouvCom){
+		global $db;
+		//echappement html
+		htmlspecialchars($nouvCom);
+		//modification du commentaire dans la base 
+		$q = $db->prepare('UPDATE commentaire c
+        					SET c.commentaire = ?
+        					WHERE c.idCommentaire = ? '
+        					);
+		$q->execute([$nouvCom,$idCommentaire]);
+		$q->closeCursor();
+	}
+	//fonction de recuperation d'un id d'un theme par son libelle
+	function getThemeId($libelle){
+		htmlspecialchars($libelle);
+		global $db;
+		$q = $db->prepare("SELECT  t.idTheme 
+							 FROM theme t
+							 WHERE t.libelleTheme = ?
+							 ");
+		$q->execute([$libelle]);
+		$data = $q->fetch();
+		$id = $data[0];
+		$q->closeCursor();	
+		return $id;
+	}
+	//fonction de recuperation d'un id d'une restriction par son libelle
+	function getRestrictionId($libelle){
+		htmlspecialchars($libelle);
+		global $db;
+		$q = $db->prepare("SELECT  r.idRestriction 
+							 FROM restriction r
+							 WHERE r.typeRestriction = ?
+							 ");
+		$q->execute([$libelle]);
+		$data = $q->fetch();
+		$id = $data[0];
+		$q->closeCursor();	
+		return $id;
+	}
+	//fonction d'ajout de commentaire
+	function ajoutCommentaire($login,$commentaire,$theme,$restriction){
+		//ajouter date du jour avec  CURDATE()
+		//echappement html
+		htmlspecialchars($commentaire);
+		htmlspecialchars($theme);
+		htmlspecialchars($restriction);
+		$idTheme = getThemeId($theme);
+		$idRestriction = getRestrictionId($restriction);
+		//insertion dans la base
+		global $db;
+		$q = $db->prepare("INSERT INTO commentaire (commentaire,dateCreation,idTheme,idRestriction,login,nbLike,nbUnlike) 
+							VALUES (?,CURDATE(),?,?,?,0,0)
+        					");
+		$q->execute([$commentaire,$idTheme,$idRestriction,$login]);
+
+	}
+	//fonction de modification de la restriction d'un commentaire
+	function modifRestrictionCommentaire($idCommentaire,$restriction){
+		global $db;
+		//echappement html
+		htmlspecialchars($restriction);
+		//recuperation de l'id de la restriction
+		$id = getRestrictionId($restriction);
+		//modification du commentaire dans la base 
+		$q = $db->prepare('UPDATE commentaire c
+        					SET c.idRestriction = ?
+        					WHERE c.idCommentaire = ? '
+        					);
+		$q->execute([$id,$idCommentaire]);
+		$q->closeCursor();
+	}
 
 ?>

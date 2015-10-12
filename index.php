@@ -164,8 +164,8 @@
                         <div>
                             <strong>
                               <?php
-                             require('controle/fonction.php');
-                             require('modele/dataBase.php'); 
+                             //require('controle/fonction.php');
+                             //require('modele/dataBase.php'); 
                              
                               $nbTheme= recupNbTheme();
                               echo $nbTheme;
