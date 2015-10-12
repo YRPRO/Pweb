@@ -1,3 +1,4 @@
+    
 <!DOCTYPE html>
 <html lang="fr">
   
@@ -16,10 +17,11 @@
       <link href="./vue/css/bootstrap.min.css" rel="stylesheet">
 <!--Notre style css -->
   <link rel="stylesheet" href="./vue/css/style_principal.css"/>
+    <link href="./vue/css/font-awesome.css" rel="stylesheet" />
 
   </head>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+ <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,27 +36,38 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-            <li><a href="#about">A propos</a></li>
+            <li><a href="#">A propos</a></li>
             <li><a href="#contact">Contact</a></li>
 
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
-    <div class="container">
 
-      <div class="jumbotron">
-        
-        <h1>Bienvenue sur Social Book.<span class="glyphicons glyphicons-group"></span>
-        </h1>
-        <p class="lead">Liker , commentez, et publiez ! Social book est un réseau social qui vous permet de rencontrer d'autre utilisateur afin d'élargir votre cercle d'amis , trouver un job... </p><br>
-       
+    <div id="home">
+        <div class="overlay">
+         
+            <div class="container">
+                <div class="col-md-8 col-md-offset-2 text-center">
+
+                    <h1>Social Book </h1>
+                    <h2>Le réseaux social ...</h2>
+                    <p class="p-cls">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>      
+                    <button type="button" class="btn btn-primary"><span class="fa fa-eye fa-1x"></span> Visiteur</button>
+
       <a href="vue/inscription.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> S'inscrire</button>  </a>
-        
- <!-- Modal est compris dans boostrap il nous permet d'inserer un bouton qui au clic ouvrira une petite fenètre qui va nous permettre de nous loger -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Connexion</button>
 
- 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-user"></span> Connexion</button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -86,61 +99,102 @@
       
     </div>
   <!-- fin du modal-->
-  </div>
- 
-  
-<div id="section1" class="container-fluid">
-  <h1 class="text-center">Partager</h1>
-
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-</div>
-
-
-<div id="section2" class="container-fluid">
-  <div id="titreCom">
-  <h1 class="text-center">Commenter</h1>
-  </div>
-  <div id="scroll-com"> 
-  <?php
-  require('modele/dataBase.php');
-  require('controle/fonction.php');
-  $coms= recupCommentaire();
-//  var_dump($test);
-  //$test[0]->commentaire;
-      
-          for($i = 0;$i<count($coms);$i++){
-            ?>
-
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                  <center><h3 class="panel-title"> <?php echo 'Ecrit par : '.$coms[$i]->login.'  - thème('.$coms[$i]->libelleTheme.')  -'  ;  ?></h3></center>
+    <section id="services">
+        <div class="container">
+            <div class="apropos">
+            <div class="row text-center pad-bottom">
+                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                    <h2 class="head-set">A propos...</h2>
+                    <p>
+                       Social book est un réseau social qui vous permet de vous vous exprimer en toute liberte et de rencontrer d'autre utilisateur pout tisser de nouveau lien .
+                    </p>
                 </div>
-                <div class="panel-body">
-                  <center><p><?php echo $coms[$i]->commentaire; ?></p></center>
-                </div>
-          <div class="panel-footer">
-                  <center><p><?php echo $coms[$i]->dateCreation; ?></p></center>
-          </div>
-
             </div>
-        <?php  } ?>
-</div>
-  
-  <br>
+        </div>
+            <div class="row text-center">
 
-</div>
-<div id="section3" class="container-fluid">
-  <h1 class="text-center">Liker</h1>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-  <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <i class="fa fa-users fa-5x"></i>
+                    <h4 class="head-set">PARTAGER</h4>
+                    <p>
+                 Social book vous permez de rencontrer d'autre utilisteur et elargir votre cercle d'amis
 
-</div>
-</br>
+                    </p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <i class="fa fa-heart fa-5x"></i>
+                    <h4 class="head-set">LIKER</h4>
+                    <p>
+                        Liker/unliker les publications des membres de social book.
+                    </p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <i class="fa fa-comments fa-5x"></i>
+                    <h4 class="head-set">COMMENTER</h4>
+                    <p>
+                     Social book vous permez de poster sur la toile vos commentaires.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="parallax-like">
+        <div class="overlay">
 
-    </div><!-- /.container -->
-<?php
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div>
+                             <?php
+                             require('controle/fonction.php');
+                             require('modele/dataBase.php'); 
+                             
+                              $nbMembre=recupNbUtilsateur() ;
+                              echo $nbMembre;
+
+                             ?>
+                       </strong>
+                            <p>
+                                Membres
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div>
+                            <strong>
+                              <?php
+                             require('controle/fonction.php');
+                             require('modele/dataBase.php'); 
+                             
+                              $nbTheme= recupNbTheme();
+                              echo $nbTheme;
+
+                             ?>
+
+
+
+                            </strong>
+                            <p>
+                                Like
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 ">
+                        <div>
+                            <strong>+150</strong>
+                            <p>
+                                Commentaires
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  <?php
 include('partie/footer.php');
 ?>
-  </body>
-</html>
+
+    </html>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 11 Octobre 2015 à 20:56
+-- Généré le :  Lun 05 Octobre 2015 à 19:45
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   KEY `fk_commentaire_idtheme` (`idTheme`),
   KEY `fk_commentaire_restriction` (`idRestriction`),
   KEY `fk_commentaire_idutilisateur` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `commentaire`
 --
 
 INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `dateCreation`, `idTheme`, `idRestriction`, `login`, `nbLike`, `nbUnlike`) VALUES
-(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 1, 'a', 20, 10),
+(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 1, 'a', 0, 0),
 (2, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 2, 2, 'a', 0, 0),
 (3, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 3, 3, 'a', 0, 0),
 (4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 4, 1, 'b', 0, 0),
@@ -63,8 +63,7 @@ INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `dateCreation`, `idTh
 (15, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 15, 3, 'e', 0, 0),
 (16, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 1, 'f', 0, 0),
 (17, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 2, 'f', 0, 0),
-(18, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 3, 'f', 0, 0),
-(19, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-08', 1, 1, 'a', 2, 0);
+(18, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 3, 'f', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -91,30 +90,6 @@ INSERT INTO `contact` (`utilisateur`, `amis`) VALUES
 ('a', 'e'),
 ('b', 'e'),
 ('a', 'f');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `likeparutilisateur`
---
-
-CREATE TABLE IF NOT EXISTS `likeparutilisateur` (
-  `idLikeParUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
-  `idCommentaire` int(11) NOT NULL,
-  `login` varchar(15) NOT NULL,
-  PRIMARY KEY (`idLikeParUtilisateur`),
-  KEY `fk_idCom` (`idCommentaire`),
-  KEY `fk_login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `likeparutilisateur`
---
-
-INSERT INTO `likeparutilisateur` (`idLikeParUtilisateur`, `idCommentaire`, `login`) VALUES
-(1, 1, 'b'),
-(2, 1, 'a'),
-(3, 1, 'a');
 
 -- --------------------------------------------------------
 
@@ -185,11 +160,11 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `login` varchar(15) CHARACTER SET latin1 NOT NULL,
   `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
   `prenom` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `sexe` varchar(1) DEFAULT NULL,
-  `dateN` date DEFAULT NULL,
   `email` varchar(30) CHARACTER SET latin1 NOT NULL,
   `password` varchar(20) CHARACTER SET latin1 NOT NULL,
   `dateInsciption` date NOT NULL,
+  `dateN` date NOT NULL,
+  `sexe` varchar(10) NOT NULL,
   PRIMARY KEY (`login`),
   UNIQUE KEY `login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -198,13 +173,13 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`login`, `nom`, `prenom`, `sexe`, `dateN`, `email`, `password`, `dateInsciption`) VALUES
-('a', 'a', 'a', '', '0000-00-00', 'a@a.fr', 'a', '2015-10-01'),
-('b', 'b', 'b', '', '0000-00-00', 'b@b.fr', 'b', '2015-10-02'),
-('c', 'c', 'c', '', '0000-00-00', 'c@c.fr', 'c', '2015-10-02'),
-('d', 'd', 'd', '', '0000-00-00', 'd@d.fr', 'd', '2015-10-02'),
-('e', 'e', 'e', '', '0000-00-00', 'e@e.fr', 'e', '2015-10-02'),
-('f', 'f', 'f', '', '0000-00-00', 'f@f.fr', 'f', '2015-10-02');
+INSERT INTO `utilisateur` (`login`, `nom`, `prenom`, `email`, `password`, `dateInsciption`, `dateN`, `sexe`) VALUES
+('a', 'a', 'a', 'a@a.fr', 'a', '2015-10-01', '0000-00-00', ''),
+('b', 'b', 'b', 'b@b.fr', 'b', '2015-10-02', '0000-00-00', ''),
+('c', 'c', 'c', 'c@c.fr', 'c', '2015-10-02', '0000-00-00', ''),
+('d', 'd', 'd', 'd@d.fr', 'd', '2015-10-02', '0000-00-00', ''),
+('e', 'e', 'e', 'e@e.fr', 'e', '2015-10-02', '0000-00-00', ''),
+('f', 'f', 'f', 'f@f.fr', 'f', '2015-10-02', '0000-00-00', '');
 
 --
 -- Contraintes pour les tables exportées
@@ -224,13 +199,6 @@ ALTER TABLE `commentaire`
 ALTER TABLE `contact`
   ADD CONSTRAINT `fk_contact_idAmis` FOREIGN KEY (`amis`) REFERENCES `utilisateur` (`login`),
   ADD CONSTRAINT `fk_contact_idUtil` FOREIGN KEY (`utilisateur`) REFERENCES `utilisateur` (`login`);
-
---
--- Contraintes pour la table `likeparutilisateur`
---
-ALTER TABLE `likeparutilisateur`
-  ADD CONSTRAINT `fk_idCom` FOREIGN KEY (`idCommentaire`) REFERENCES `commentaire` (`idCommentaire`),
-  ADD CONSTRAINT `fk_login` FOREIGN KEY (`login`) REFERENCES `utilisateur` (`login`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
