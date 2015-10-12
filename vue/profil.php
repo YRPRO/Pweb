@@ -24,7 +24,7 @@
 		$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
 			/*var_dump($dataCommmentaire);
 			die();*/
-		}
+		
 	 ?>
 	<?php include('../partie/menu.php'); ?>
 	
