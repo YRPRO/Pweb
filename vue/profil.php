@@ -21,10 +21,7 @@
 		require('../controle/fonction.php');
 		session_start();
 		//verification -> page de profil correct
-		if(empty($_GET['login']))
-			header('location:../vue/profil.php?login='.$_SESSION['login']);
-		else{
-			$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
+		$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
 			/*var_dump($dataCommmentaire);
 			die();*/
 		}
