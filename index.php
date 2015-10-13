@@ -176,13 +176,19 @@
 
                             </strong>
                             <p>
-                                Like
+                            Themes
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 ">
                         <div>
-                            <strong>+150</strong>
+                            <strong>
+                            <?php
+                            $nbCom=recupNbcommentaire();
+                            echo $nbCom;
+                            ?>
+
+                            </strong>
                             <p>
                                 Commentaires
                             </p>

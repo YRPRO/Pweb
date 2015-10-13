@@ -12,5 +12,7 @@
       <link href="../vue/css/bootstrap.min.css" rel="stylesheet">
 <!--Notre style css -->
   <link rel="stylesheet" href="../vue/css/style_principal.css"/>
+    <link rel="stylesheet" href="../vue/css/style.css"/>
+
 
   </head>

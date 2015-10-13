@@ -34,11 +34,12 @@
 
 	function recupCommentairePublic(){
 		global $db;
-		$q = $db->prepare('SELECT c.commentaire , c.dateCreation , t.libelleTheme , r.typeRestriction , c.nbLike,c.nbunLike,c.login
+		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateC  , t.libelleTheme as libelleTheme
+		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnlike,c.login as login
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 
 						AND   c.idRestriction = r.idRestriction
-						AND   r.typeRestriction = ?	
+						AND   r.typeRestriction = ?
 							');
 		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
 		$q->execute(['public']);
