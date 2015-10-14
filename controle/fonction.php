@@ -35,7 +35,7 @@
 	function recupCommentairePublic(){
 		global $db;
 		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateC  , t.libelleTheme as libelleTheme
-		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnlike,c.login as login
+		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnLike,c.login as login
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 
 						AND   c.idRestriction = r.idRestriction

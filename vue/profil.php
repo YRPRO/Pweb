@@ -1,90 +1,110 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Reseau social ">
-    <!-- <link rel="icon" href="../../favicon.ico">-->
-    <title>Page de profil</title>
-    <!--- Permet d'utiliser certaine balise de html 5 meme si on a une ancienne version du navigateur -->
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+   <?php 
+  include("../partie/entete.php");
+  include("../partie/menu.php");
+  ?>
 
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-<!--Notre style css -->
-  <link rel="stylesheet" href="css/style_principal.css"/>
-
-  </head>
 <body>
 	<?php
-		require('../modele/dataBase.php');
-		require('../controle/fonction.php');
-		session_start();
+	require('../modele/dataBase.php');
+	require('../controle/fonction.php');
+	session_start();
 		//verification -> page de profil correct
+	if(empty($_GET['login']))
+		header('location:../vue/profil.php?login='.$_SESSION['login']);
+	else{
 		$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
-			/*var_dump($dataCommmentaire);
-			die();*/
-		
-	 ?>
-	<?php include('../partie/menu.php'); ?>
-	
-  	<div class="col-md-6">
-  		<div class="panel-heading">
-			<div class="panel panel-default">
-	    		<center><h3 class="panel-title">Profil de <?php echo $_SESSION['login']; ?></h3></center>
-	  		</div>
-	  		<div class="panel-body">
-	  			
-	  		</div>
-		</div>
-  	</div>	
+	}
+	?>
 
-  		
-  	<!--ZONE DE COMMENAIRES -->
-  	<div class="col-md-6">
-  		<div class="panel-heading">
-			<div class="panel panel-default">
-	    		<center><h3 class="panel-title">Commentaires Zone</h3></center>
-	  		</div>
-	  		<div class="panel-body">
-				<!--Zone de redaction de commentaire -->
-				 <div class="form-group">
-				 	<div class="panel panel-default">
-	    			<center><h3 class="panel-title">Nouveau commentaire</h3></center>
-	  					<div class="form-group ">
-	 						<input class="form-control input-lg" id="inputlg" type="text">
+	<div class="container">
+		<div class="row profile">
+			<div class="col-md-3">
+				<div class="profile-sidebar">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="../avatarDefaut.png" class="img-responsive" alt="">
+						<!-- <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">-->
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<?php echo $_SESSION['login']?>
 						</div>
-						<div class="btn-group">
-  							<button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							    Large button <span class="caret"></span>
-							 </button>
-							  <ul class="dropdown-menu">
-							    <li>test</li>
-							    <li>test2</li>
-							    <li>test2</li>
-							  </ul>
+						<div class="profile-usertitle-job">
+							Adresse mail
 						</div>
 					</div>
-				</div>
-				<!--Boucle d'affichage des commentaire -->	
-				<?php 
-					for($i = 0;$i<count($dataCommmentaire);$i++){
-						?>
-						<div class="panel panel-default">
-	  						<div class="panel-heading">
-	    						<center><h3 class="panel-title"> <?php echo $dataCommmentaire[$i]->dateCreation ."&nbsp;&nbsp;&nbsp;&nbsp". $dataCommmentaire[$i]->libelleTheme."&nbsp;&nbsp;&nbsp;&nbsp" . $dataCommmentaire[$i]->typeRestriction; ?></h3></center>
-	  						</div>
-	  						<div class="panel-body">
-	    						<center><p><?php echo $dataCommmentaire[$i]->commentaire; ?></p></center>
-	  						</div>
-						</div>
-				<?php  } ?>
-	  				
+					<!-- END SIDEBAR USER TITLE -->
+					<!-- SIDEBAR BUTTONS -->
+					<div class="profile-userbuttons">
+						<button type="button" class="btn btn-success btn-sm">Ajouter</button>
+					</div>
+					<!-- END SIDEBAR BUTTONS -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="#commentaires">
+									<i class="glyphicon glyphicon-home"></i>
+									Commentaires</a>
+								</li>
+								<li>
+									<a href="#amis">
+										<i class="glyphicon glyphicon-user"></i>
+										Mes amis</a><br>
+									</li>
+			
+									</ul>
+								</div>
+								<!-- END MENU -->
 
-	  		</div>
-		</div>
-  	</div>
-</body>
-</html>
+								<ul class="list-group">
+									<li class="list-group-item text-muted">Statistiques<i class="fa fa-dashboard fa-1x"></i></li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Commentaires</strong></span> 125</li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre de likes</strong></span> 13</li>
+									<li class="list-group-item text-right"><span class="pull-left"><strong>Nombre d'amis</strong></span> 37</li>
+								</ul> 
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="profile-content">
+
+							<div class="status-post">
+								<form action="commentaires.php" method="post" data-parsley-validate>
+									<div class="form-group">
+									<label for="content" class="sr-only">Statut:</label>
+									<textarea name="content" id="content" rows="3" clas="form-control"
+									placeholder="Alors quoi de neuf ?"></textarea>
+									</div>
+
+									<div class="form-group status-post-submit">
+										<input type="submit" name="publish" value="Publier" class="btn btn-default btn-xs">
+									</div>
+
+
+								</form>
+
+
+									
+								</div>
+							</div>
+							</div>
+						</div>
+
+</diV>
+					<?php
+include('../partie/footer.php');
+?>
+
+
+
+					</body>
+
+
+					</html>
+
 
 

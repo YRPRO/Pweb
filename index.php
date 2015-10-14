@@ -55,7 +55,7 @@
                     <p class="p-cls">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </p>      
-                    <button type="button" class="btn btn-primary"><span class="fa fa-eye fa-1x"></span> Visiteur</button>
+           <a href="vue/filVisiteur.php"><button type="button" class="btn btn-primary"><span class="fa fa-eye fa-1x"></span> Visiteur</button></a>
 
       <a href="vue/inscription.php"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> S'inscrire</button>  </a>
 
