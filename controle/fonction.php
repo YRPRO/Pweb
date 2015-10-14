@@ -85,6 +85,18 @@
 		$q->closeCursor();	
 		return $dataNbUtilisateur;
 	}
+
+function recupLibelleTheme(){
+		global $db;
+		$q = $db->prepare('SELECT libelleTheme
+							 FROM theme
+							');
+		$q->execute();
+		$data = $q->fetchALL(PDO::FETCH_OBJ);
+		//$dataNbUtilisateur = $tmp[0];
+		$q->closeCursor();	
+		return $data;
+	}
 	//fonction de recuperation du nombre de commentaires
 	function recupNbcommentaire(){
 		global $db;

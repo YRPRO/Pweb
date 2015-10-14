@@ -4,37 +4,32 @@
   include("../partie/entete.php");
   include("../partie/menu.php");
   ?>
-	<body>
+  <body>
 
 <div class="container-fluid">
   
   <!--left-->
   <div class="col-sm-3">
-        <h2>Side</h2>
-    	<div class="panel panel-default">
-         	<div class="panel-heading">Title</div>
-         	<div class="panel-body">Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-            Aliquam in felis sit amet augue.</div>
+        <hr>
+    <div class="panel panel-primary">
+          <div class="panel-heading"><H4>Thèmes</h4></div>
+          <div class="panel-body">
+<ul id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 400px;">
+        <?php 
+       require('../modele/dataBase.php');
+  require('../controle/fonction.php');
+  $theme= recupLibelleTheme();
+      
+          for($i = 0;$i<count($theme);$i++){
+            ?>  
+ <li><a href="#"><span class="glyphicon glyphicon-off"></span><?php echo $theme[$i]->libelleTheme ?></a></li>
+<?php } ?>
+</ul>
+
+          </div>
         </div>
         <hr>
-        <div class="panel panel-default">
-         	<div class="panel-heading">Title</div>
-         	<div class="panel-body">Content here..</div>
-        </div>
-        <hr>
-        <div class="panel panel-default">
-         	<div class="panel-heading">Title</div>
-         	<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-            Aliquam in felis sit amet augue.</div>
-        </div>
-        <hr>
-        <div class="panel panel-default">
-         	<div class="panel-heading">Title</div>
-         	<div class="panel-body">Content here..</div>
-        </div>
-        <hr>
+    
   </div><!--/left-->
   
   <!--center-->
@@ -49,9 +44,7 @@
 
   </div>
     <hr>
-     <?php 
-       require('../modele/dataBase.php');
-  require('../controle/fonction.php');
+     <?php
   $coms= recupCommentairePublic();
       
           for($i = 0;$i<count($coms);$i++){
@@ -67,15 +60,13 @@
       </div>
     </div>
      <?php  } ?>
-
-  
-    
   </div><!--/center-->
 
   <hr>
 </div><!--/container-fluid-->
-	<!-- script references -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-	</body>
+<hr>
+  </body>
+  <?php
+  include("../partie/footer.php");
+  ?>
 </html>
