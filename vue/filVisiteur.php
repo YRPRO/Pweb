@@ -22,7 +22,7 @@
       
           for($i = 0;$i<count($theme);$i++){
             ?>  
- <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span> <?php echo $theme[$i]->libelleTheme ?></a></li>
+ <li><a href="filVisiteur.php?theme=<?php echo $theme[$i]->libelleTheme ?>"><span class="glyphicon glyphicon-bookmark"></span> <?php echo $theme[$i]->libelleTheme ?></a></li>
 <?php } ?>
 </ul>
 
@@ -45,7 +45,10 @@
   </div>
     <hr>
      <?php
-  $coms= recupCommentairePublic();
+  if(isset($_GET['theme']))
+        $coms= recupCommentairePublicTheme($_GET['theme']); 
+      else 
+        $coms= recupCommentairePublic();
       
           for($i = 0;$i<count($coms);$i++){
             ?>  

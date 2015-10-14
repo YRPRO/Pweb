@@ -47,6 +47,24 @@
 		$q->closeCursor();
 		return $dataCom;
 	}
+	function recupCommentairePublicTheme($theme){
+		global $db;
+		htmlspecialchars($theme);
+		$idTheme = getThemeId($theme);
+		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateC  , t.libelleTheme as libelleTheme
+		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnLike,c.login as login
+							 FROM commentaire c,theme t , restriction r 
+							 WHERE c.idTheme = t.idTheme 
+						AND   c.idRestriction = r.idRestriction
+						AND   r.typeRestriction = ?
+						AND   c.idTheme = ?
+							');
+		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
+		$q->execute(['public',$idTheme]);
+		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
+		$q->closeCursor();
+		return $dataCom;
+	}
 	
 	// Différent de verifLogin la on veut juste voir si le login existe deja donc si oui on demande a l'utilisateur de 
 	function verifPresent($login){
