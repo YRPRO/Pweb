@@ -22,7 +22,7 @@
       
           for($i = 0;$i<count($theme);$i++){
             ?>  
- <li><a href="#"><span class="glyphicon glyphicon-off"></span><?php echo $theme[$i]->libelleTheme ?></a></li>
+ <li><a href="#"><span class="glyphicon glyphicon-bookmark"></span> <?php echo $theme[$i]->libelleTheme ?></a></li>
 <?php } ?>
 </ul>
 
