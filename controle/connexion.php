@@ -23,13 +23,18 @@
 				//mise en place de la variable session
 				$_SESSION['login'] = $login;
 				$_SESSION['password'] = $password;
-				header('location:../vue/profil.php');
+				//une fois l'utilisateur connecter on prepare sa page de profil
+				//require('controlePageProfil.php');
+				//require('../modele/dataBase.php');
+				//require('../modele/accesBase.php');
+
+				header('location:controlePageProfil.php');
 
 			}
 			else{	
-				//save_input_data()	;
-				//header('location:../index.php');
-				echo 'identification non reussi';
+				$_SESSION['error'] = "Echec de l'identification, login ou mot de passe non valide.";
+				header('Location:../vue/accueil.php');
+
 			}			
 		}			
 	

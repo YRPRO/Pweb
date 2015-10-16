@@ -1,3 +1,7 @@
+<?php
+  //activation de la session
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <?php 
@@ -16,13 +20,10 @@
           <div class="panel-body">
 <ul id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 400px;">
         <?php 
-       require('../modele/dataBase.php');
-  require('../controle/fonction.php');
-  $theme= recupLibelleTheme();
-      
+            $theme = $_SESSION['libelleTheme'];
           for($i = 0;$i<count($theme);$i++){
             ?>  
- <li><a href="filVisiteur.php?theme=<?php echo $theme[$i]->libelleTheme ?>"><span class="glyphicon glyphicon-bookmark"></span> <?php echo $theme[$i]->libelleTheme ?></a></li>
+ <li><a href="../controle/controleFillVisiteur.php?theme=<?php echo $theme[$i]->libelleTheme ?>" ><span class="glyphicon glyphicon-bookmark"></span> <?php echo $theme[$i]->libelleTheme ?></a></li>
 <?php } ?>
 </ul>
 
@@ -45,10 +46,11 @@
   </div>
     <hr>
      <?php
-  if(isset($_GET['theme']))
-        $coms= recupCommentairePublicTheme($_GET['theme']); 
-      else 
-        $coms= recupCommentairePublic();
+      /*if(isset($_GET['theme']))
+            $coms= recupCommentairePublicTheme($_GET['theme']); 
+       else 
+          $coms= recupCommentairePublic();*/
+          $coms = $_SESSION['commentairePublic'];
       
           for($i = 0;$i<count($coms);$i++){
             ?>  

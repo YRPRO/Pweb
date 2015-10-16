@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-   <?php 
+   <?php
+   session_start(); 
   include("../partie/entete.php");
   include("../partie/menu.php");
   ?>
 
 <body>
 	<?php
-	require('../modele/dataBase.php');
-	require('../controle/fonction.php');
-	session_start();
-		//verification -> page de profil correct
-	if(empty($_GET['login']))
-		header('location:../vue/profil.php?login='.$_SESSION['login']);
-	else{
-		$dataCommmentaire = recupCommentaireUtilisateur($_GET['login']);
-	}
+		$_SESSION['comPublic'];
+		$_SESSION['comUtilisateur'] ;
+		$_SESSION['comAmis'] ;
+	
 	?>
 
 	<div class="container">
