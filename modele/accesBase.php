@@ -150,6 +150,17 @@ function recupLibelleTheme(){
 		$q->closeCursor();	
 		return $dataResCom[0]->typeRestriction;
 	}
+	//fonction de recupation des restriction
+	function recupRestriction(){
+		global $db;
+		$q = $db->prepare('SELECT r.typeRestriction
+							 FROM  restriction r
+							  ');
+		$q->execute();
+		$dataRestricion = $q->fetchALL(PDO::FETCH_OBJ);
+		$q->closeCursor();	
+		return $dataRestricion;
+	}
 	//fonction de recuperation des amis d'un utilisateur
 	function recupAmisUtilisateur($login){
 		global $db;
@@ -351,5 +362,46 @@ function recupLibelleTheme(){
         					);
 		$q->execute([$id,$idCommentaire]);
 		$q->closeCursor();
+	}
+	//fonction de recupation du nb d'amis pour un utilisateur
+	function recupNbAmis($login){
+		global $db;
+		$q = $db->prepare ('SELECT COUNT(c.utilisateur)
+					 FROM contact c
+					 WHERE c.utilisateur = ?');
+		$q->execute([$login]);
+		$data = $q->fetch(PDO::FETCH_OBJ);
+		$nb = $data;
+		$q->closeCursor();	
+		return $nb;
+	}
+	//fonction de recupation du nb de commentaire pour un utilisateur
+	function recupNbComUtilisateur($login){
+		global $db;
+		$q = $db->prepare('SELECT COUNT(c.idCommentaire)
+					 FROM commentaire c
+					 WHERE c.login = ?');
+		$q->execute([$login]);
+		$data = $q->fetch(PDO::FETCH_OBJ);
+		$nb = intval($data);
+		$q->closeCursor();	
+		return $nb;
+	}
+	//fonction de recupation du nb de like pour un utilisateur
+	function recupNbLikeUtilisateur($login){
+		global $db;
+		$q = $db->prepare('SELECT c.like
+					 FROM commentaire c
+					 WHERE c.login = ?');
+		$q->execute([$login]);
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
+		//boucle pour recuperer le nb de like 
+		$nb = 0;
+		for($i=0;$i<count($data);$i++){
+			$nb = $nb + intval($data[$i]->nbLike);
+		}
+		
+		$q->closeCursor();	
+		return $nb;
 	}
 ?>
