@@ -10,7 +10,7 @@
 	$_SESSION['restriction'] = recupRestriction();
 	$_SESSION['nbAmis'] = recupNbAmis($_SESSION['login']);
 	$_SESSION['nbCom'] = recupNbComUtilisateur($_SESSION['login']);
-	$_SESSION['nblike'] =recupNbLikeUtilisateur($_SESSION['login']);
+	$_SESSION['nbLike'] =recupNbLikeUtilisateur($_SESSION['login']);
 	header('Location:../vue/profil.php');
 
 

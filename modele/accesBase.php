@@ -366,31 +366,37 @@ function recupLibelleTheme(){
 	//fonction de recupation du nb d'amis pour un utilisateur
 	function recupNbAmis($login){
 		global $db;
-		$q = $db->prepare ('SELECT COUNT(c.utilisateur)
+		$q = $db->prepare ('SELECT c.utilisateur
 					 FROM contact c
 					 WHERE c.utilisateur = ?');
 		$q->execute([$login]);
-		$data = $q->fetch(PDO::FETCH_OBJ);
-		$nb = $data;
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
+		$nb = 0;
+		for($i=0;$i<count($data);$i++){
+			$nb++;
+		}
 		$q->closeCursor();	
 		return $nb;
 	}
 	//fonction de recupation du nb de commentaire pour un utilisateur
 	function recupNbComUtilisateur($login){
 		global $db;
-		$q = $db->prepare('SELECT COUNT(c.idCommentaire)
+		$q = $db->prepare('SELECT c.idCommentaire
 					 FROM commentaire c
 					 WHERE c.login = ?');
 		$q->execute([$login]);
-		$data = $q->fetch(PDO::FETCH_OBJ);
-		$nb = intval($data);
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
+		$nb = 0;
+		for($i=0;$i<count($data);$i++){
+			$nb++;
+		}
 		$q->closeCursor();	
 		return $nb;
 	}
 	//fonction de recupation du nb de like pour un utilisateur
 	function recupNbLikeUtilisateur($login){
 		global $db;
-		$q = $db->prepare('SELECT c.like
+		$q = $db->prepare('SELECT c.nbLike
 					 FROM commentaire c
 					 WHERE c.login = ?');
 		$q->execute([$login]);
