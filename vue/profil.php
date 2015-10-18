@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <head>
@@ -23,7 +23,7 @@
 
 <body>
 	<?php
-		$dataCommmentaire = $_SESSION['comUtilisateur'];
+
 	?>
 	<?php include('../partie/menu.php'); ?>
 
@@ -93,74 +93,125 @@
 							<div class="profile-content">
 
 								<!-- Formulaire d'ajout d'un commentaire -->
-								<form action="commentaires.php" method="post">
+								<form action="../controle/ajoutCommentaire.php" method="post">
 									<div class="form-group">
 										<label for="content" class="sr-only">Statut:</label>
-										<textarea name="content" id="content" rows="3" class="form-control" placeholder="Quoi de neuf ?"></textarea>
+										<style type="text/css">textarea{ resize:none;}</style>
+										<textarea name="commentaire" id="commentaire" rows="3" class="form-control" placeholder="Quoi de neuf ?"></textarea>
 
 									</div>
 
 									<div class="form-group status-post-submit">
-										<input type="submit" name="publier" value="Publier" class="btn btn-default btn-xs">
+									<button type="submit" class="btn btn-success">Publier</button>
+									<!--<input type="submit" name="publier" value="Publier" class="btn btn-default btn-xs">-->
 									</div>
 
 									<!-- Choix des info du commentaire -->
 									<div class="form-group info-com">
-										Thème : <select id="liste_theme">
+										Thème : <select id="theme" name="theme">
 										<?php 
 										$libelleTheme = $_SESSION['libelleTheme'];
 										//$listh = $db->query('SELECT t.libelleTheme FROM theme t');
 										for($i = 0 ; $i < count($libelleTheme);$i++) {
 											echo '<option value="'.$libelleTheme[$i]->libelleTheme.'">'.$libelleTheme[$i]->libelleTheme.'</option>';
 										}
-											?>
-										</select><br>
-										Niveau de restriction : <select id="liste_restriction">
-										<?php 
-										//$listR = $db->query('SELECT r.typeRestriction FROM restriction r');
-										$restriction = $_SESSION['restriction'];
-										for ($i = 0 ; $i < count($restriction);$i++) {
-											echo '<option value="'. $restriction[$i]->typeRestriction.'">'.$restriction[$i]->typeRestriction.'</option>';
-										}
-											?></select>
-										</div> 
-									</form><br>
-
-									<!--Affichage des commentaires de l'utilisateur -->
-									<?php 
-									for($i = 0;$i<count($dataCommmentaire);$i++){
 										?>
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<center><h3 class="panel-title"> <?php echo $dataCommmentaire[$i]->dateCreation ."&nbsp;&nbsp;&nbsp;&nbsp". $dataCommmentaire[$i]->libelleTheme."&nbsp;&nbsp;&nbsp;&nbsp" . $dataCommmentaire[$i]->typeRestriction; ?></h3></center>
+									</select><br>
+									Niveau de restriction : <select id="restriction" name="restriction">
+									<?php 
+									$restriction = $_SESSION['restriction'];
+									for ($i = 0 ; $i < count($restriction);$i++) {
+										echo '<option value="'. $restriction[$i]->typeRestriction.'">'.$restriction[$i]->typeRestriction.'</option>';
+									}
+									?></select>
+								</div> 
+							</form><br>
+
+							<!--Affichage des commentaires  -->
+							<?php 
+							$comUtilisateur = $_SESSION['comUtilisateur'];?>
+							<div class="panel panel-default">
+								<div class="panel-heading"><center>Mes commentaires</center></div>
+								<div class="panel-body">
+									
+
+									<?php
+									for($i = 0;$i<count($comUtilisateur);$i++){
+										?>
+										<div class="row">
+											<div class="col-xs-12">
+												<h3> <?php echo 'Ecrit par : '.$comUtilisateur[$i]->login.'  - Thème : '.$comUtilisateur[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comUtilisateur[$i]->typeRestriction; ?></h3>
+												<p><?php echo $comUtilisateur[$i]->commentaire; ?></p>
+												<ul class="list-inline"><li><?php echo $comUtilisateur[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
+													<span class="badge"><?php echo $comUtilisateur[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
+													<span class="badge"><?php echo $comUtilisateur[$i]->nbUnLike ;?></span> </li></ul>
+												</div>
 											</div>
-											<div class="panel-body">
-												<center><p><?php echo $dataCommmentaire[$i]->commentaire; ?></p></center>
+											<?php  } ?>
+										</div>
+									</div>
+									<?php 
+										$comAmis = $_SESSION['comAmis'];
+
+									 ?>
+									<div class="panel panel-default">
+										<div class="panel-heading"><center>Commentaires de mes amis</center></div>
+										<div class="panel-body">
+											
+											<?php
+											for($i = 0;$i<count($comAmis);$i++){
+												?>
+												<div class="row">
+													<div class="col-xs-12">
+														<h3> <?php echo 'Ecrit par : '.$comAmis[$i]->login.'  - Thème : '.$comAmis[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comAmis[$i]->typeRestriction; ?></h3>
+														<p><?php echo $comAmis[$i]->commentaire; ?></p>
+														<ul class="list-inline"><li><?php echo $comAmis[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
+															<span class="badge"><?php echo $comAmis[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
+															<span class="badge"><?php echo $comAmis[$i]->nbUnLike ;?></span> </li></ul>
+														</div>
+													</div>
+													<?php  } ?>
+												</div>
+											</div>
+											<?php 
+												$comPublic = $_SESSION['comPublic'];
+											?>
+
+											<div class="panel panel-default">
+										<div class="panel-heading"><center>Les commentaires public </center></div>
+										<div class="panel-body">
+											
+											<?php
+											for($i = 0;$i<count($comPublic);$i++){
+												?>
+												<div class="row">
+													<div class="col-xs-12">
+														<h3> <?php echo 'Ecrit par : '.$comPublic[$i]->login .'  - Thème : '.$comPublic[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comPublic[$i]->typeRestriction; ?></h3>
+														<p><?php echo $comPublic[$i]->commentaire; ?></p>
+														<ul class="list-inline"><li><?php echo $comPublic[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
+															<span class="badge"><?php echo $comPublic[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
+															<span class="badge"><?php echo $comPublic[$i]->nbUnLike ;?></span> </li></ul>
+														</div>
+													</div>
+													<?php  } ?>
+												</div>
 											</div>
 										</div>
-										<?php  } ?>
 									</div>
-								</div>
-
-
-
-
+								</div>	
 
 							</div>
-						</div>	
+						</div>
 
-					</div>
-				</div>
-
-			</div>	
-			<?php
-			include('../partie/footer.php');
-			?>
+					</div>	
+					<?php
+					include('../partie/footer.php');
+					?>
 
 
-		</body>
+				</body>
 
-		</html>
+				</html>
 
 
 

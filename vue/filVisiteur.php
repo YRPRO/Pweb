@@ -46,10 +46,7 @@
   </div>
     <hr>
      <?php
-      /*if(isset($_GET['theme']))
-            $coms= recupCommentairePublicTheme($_GET['theme']); 
-       else 
-          $coms= recupCommentairePublic();*/
+      /
           $coms = $_SESSION['commentairePublic'];
       
           for($i = 0;$i<count($coms);$i++){

@@ -11,7 +11,7 @@ function Inscription ($login,$nom, $prenom,$sexe,$jour,$mois,$annee,$email,$pwd)
 
 	function recupCommentaireUtilisateur($login){
 		global $db;
-		$q = $db->prepare('SELECT c.commentaire , c.dateCreation , t.libelleTheme , r.typeRestriction , c.nbLike,c.nbunLike
+		$q = $db->prepare('SELECT *
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 
 						AND   c.idRestriction = r.idRestriction
@@ -26,14 +26,12 @@ function Inscription ($login,$nom, $prenom,$sexe,$jour,$mois,$annee,$email,$pwd)
 
 	function recupCommentairePublic(){
 		global $db;
-		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateC  , t.libelleTheme as libelleTheme
-		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnLike,c.login as login
+		$q = $db->prepare('SELECT *
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 
 						AND   c.idRestriction = r.idRestriction
 						AND   r.typeRestriction = ?
 							');
-		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
 		$q->execute(['public']);
 		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
 		$q->closeCursor();
@@ -254,12 +252,15 @@ function recupLibelleTheme(){
 	function recupComAmis($login){
 		global $db;
 		$q = $db->prepare('SELECT *
-							 FROM  commentaire c
-							 WHERE c.login IN (SELECT a.amis
+							 FROM  commentaire c , restriction r , theme t
+							 WHERE c.idRestriction = r.idRestriction
+							 AND  c.idTheme = t.idTheme
+							 AND 	r.typeRestriction = ? 
+							 AND c.login IN (SELECT a.amis
 							 					FROM contact a
 							 					WHERE a.utilisateur = ?)
 							');
-		$q->execute([$login]);
+		$q->execute(["contact",$login]);
 		$dataComAmis = $q->fetchALL(PDO::FETCH_OBJ);
 
 		$q->closeCursor();	
