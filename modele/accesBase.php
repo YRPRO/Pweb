@@ -37,6 +37,21 @@ function Inscription ($login,$nom, $prenom,$sexe,$jour,$mois,$annee,$email,$pwd)
 		$q->closeCursor();
 		return $dataCom;
 	}
+	//fonction de recuperation des com public excepté pour un utilisateur donné
+	function recupCommentairePublicSansUtilisateur($login){
+		global $db;
+		$q = $db->prepare('SELECT *
+							 FROM commentaire c,theme t , restriction r 
+							 WHERE c.idTheme = t.idTheme 
+						AND   c.idRestriction = r.idRestriction
+						AND   r.typeRestriction = ?
+						AND c.login != ?
+							');
+		$q->execute(['public',$login]);
+		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
+		$q->closeCursor();
+		return $dataCom;
+	}
 	function recupCommentairePublicTheme($theme){
 		global $db;
 		htmlspecialchars($theme);
@@ -410,5 +425,56 @@ function recupLibelleTheme(){
 		
 		$q->closeCursor();	
 		return $nb;
+	}
+	//fonction d'ajout du chemin de la photo de profil
+	function ajoutCheminPhoto($login,$chemin){
+		global $db;
+
+			$q = $db->prepare("SELECT p.chemin
+							 FROM photoprofil p
+							 WHERE p.login = ?
+							 ");
+			$q->execute([$login]);
+			$trouver = $q->RowCount();
+			if($trouver){
+				$q = $db->prepare('UPDATE photoprofil p
+        					SET p.chemin = ?
+        					WHERE  p.login = ? '
+        					);
+				$q->execute([$chemin,$login]);
+			}
+			else{
+					$q = $db->prepare("INSERT INTO photoprofil (login,chemin) 
+							VALUES (?,?)
+        					");
+					$q->execute([$login,$chemin]);	
+			}
+	}
+	//fonction de recupeation du chemin de la photo de profil 
+	function recupCheminPhotoProfil($login){
+		global $db;
+		$q = $db->prepare("SELECT p.chemin
+							 FROM photoprofil p
+							 WHERE p.login = ?
+							 ");
+		$q->execute([$login]);
+		$data = $q->fetch();
+		$chemin = $data[0];
+		$q->closeCursor();	
+		return $chemin;
+	}
+	//fonction permettant de savoir si un utilisateur dispose deja d'une photo
+	function aDejaUnPhoto($login){
+		global $db;
+			$q = $db->prepare("SELECT p.chemin
+							 FROM photoprofil p
+							 WHERE p.login = ?
+							 ");
+			$q->execute([$login]);
+			$trouver = $q->RowCount();
+			if($trouver)
+				return true;
+			else
+				return false;
 	}
 ?>

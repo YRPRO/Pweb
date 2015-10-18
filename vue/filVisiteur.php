@@ -46,7 +46,7 @@
   </div>
     <hr>
      <?php
-      /
+      
           $coms = $_SESSION['commentairePublic'];
       
           for($i = 0;$i<count($coms);$i++){

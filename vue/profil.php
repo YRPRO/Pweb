@@ -25,7 +25,7 @@ session_start();
 	<?php
 
 	?>
-	<?php include('../partie/menu.php'); ?>
+	<?php include('../partie/menuser.php'); ?>
 
 	<div class="container">
 		<div class="row profile">
@@ -33,7 +33,7 @@ session_start();
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<img src="../avatarDefaut.png" class="img-responsive" alt="">
+						<img src= <?php echo $_SESSION['cheminPhoto']; ?> class="img-responsive" alt="photo de profil">
 						<!-- <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">-->
 					</div>
 					<!-- END SIDEBAR USERPIC -->
@@ -44,7 +44,10 @@ session_start();
 						</div>
 						<!-- Afficher l'adresse mail de l'utilisateur connecté -->
 						<div class="profile-usertitle-job">
-							Adresse mail
+							<?php
+							$infoUser =  $_SESSION['infoUtilisateur'];
+							echo $infoUser[0]->email ; 
+							?>
 						</div>
 					</div>
 					<!-- END SIDEBAR USER TITLE -->
@@ -53,10 +56,40 @@ session_start();
 						<!-- <button type="button" class="btn btn-success btn-sm">Ajouter</button><br><br> -->
 
 						<!-- Permettre à l'utilisateur de modifier sa photo de profil -->
-						<button type="button" class="btn btn-success btn-sm">Modifier la photo de profil</button>
+						
+						<button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">Modifier la photo de profil</button>
+						<!-- alert si l 'extension du fichier n'est pas correcte (n'est pas une image) -->
+						
 
 					</div>
 					<!-- END SIDEBAR BUTTONS -->
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Choisissez votre image</h4>
+
+								</div>
+								<div class="modal-body">
+									<!-- Insertion du formulaire d'ajout d'une image-->
+
+									<form role="form" method="post" action ="../controle/recupImage.php" enctype="multipart/form-data">
+										<div class="form-group">
+											<label for="login" >Image</label>
+											<input type="file" class="form-control" id="image" name="image" placeholder="Choisir une image">
+										</div>
+										<button type="submit" class="btn btn-success">Valider</button> 
+									</form>
+									<!-- Fin du form d'ajout d'une image -->
+								</div>
+							</div>
+						</div>
+
+					</div>
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
 						<ul class="nav">
@@ -91,7 +124,17 @@ session_start();
 						<div class="status-post">
 
 							<div class="profile-content">
-
+							<?php
+								if(isset($_SESSION['error'])){
+								echo '<div class="alert alert-danger">
+								<center><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></center>
+								<center><strong>Attention! : </strong></center><br>';
+								echo '<center>'. '- '.$_SESSION['error'].'</center>'.'</br>';
+								echo'</diV>';
+								unset($_SESSION['error']);
+								}
+								
+								?>
 								<!-- Formulaire d'ajout d'un commentaire -->
 								<form action="../controle/ajoutCommentaire.php" method="post">
 									<div class="form-group">
@@ -102,8 +145,8 @@ session_start();
 									</div>
 
 									<div class="form-group status-post-submit">
-									<button type="submit" class="btn btn-success">Publier</button>
-									<!--<input type="submit" name="publier" value="Publier" class="btn btn-default btn-xs">-->
+										<button type="submit" class="btn btn-success">Publier</button>
+										<!--<input type="submit" name="publier" value="Publier" class="btn btn-default btn-xs">-->
 									</div>
 
 									<!-- Choix des info du commentaire -->
@@ -151,9 +194,9 @@ session_start();
 										</div>
 									</div>
 									<?php 
-										$comAmis = $_SESSION['comAmis'];
+									$comAmis = $_SESSION['comAmis'];
 
-									 ?>
+									?>
 									<div class="panel panel-default">
 										<div class="panel-heading"><center>Commentaires de mes amis</center></div>
 										<div class="panel-body">
@@ -165,53 +208,86 @@ session_start();
 													<div class="col-xs-12">
 														<h3> <?php echo 'Ecrit par : '.$comAmis[$i]->login.'  - Thème : '.$comAmis[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comAmis[$i]->typeRestriction; ?></h3>
 														<p><?php echo $comAmis[$i]->commentaire; ?></p>
-														<ul class="list-inline"><li><?php echo $comAmis[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
-															<span class="badge"><?php echo $comAmis[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
-															<span class="badge"><?php echo $comAmis[$i]->nbUnLike ;?></span> </li></ul>
+															<!-- traitaiment pour liker les commentaire que l'utilisateur peut liker ou unliker -->
+															<?php 
+																if(in_array($comAmis[$i]->idCommentaire,$_SESSION['listeComLikable'])){
+																	$cheminAjoutLike = "../modele/ajoutLike.php?login=".$_SESSION['login']."&idCommentaire=".$comAmis[$i]->idCommentaire;
+																	$cheminAjoutUnLike = "../modele/ajoutUnLike.php?login=".$_SESSION['login']."&idCommentaire=".$comAmis[$i]->idCommentaire;
+																?>
+																	<ul class="list-inline"><li><?php echo $comAmis[$i]->dateCreation; ?></li><li><a href=<?php echo $cheminAjoutLike; ?>>J'aime</a>  <span class="glyphicon glyphicon-thumbs-up"></span>
+																		<span class="badge"><?php echo $comAmis[$i]->nbLike ;?></span> </li><li><a href=<?php echo $cheminAjoutUnLike; ?>>Je n'aime pas</a> <span class="glyphicon glyphicon-thumbs-down"></span>
+																		<span class="badge"><?php echo $comAmis[$i]->nbUnLike ;?></span> </li>
+																	</ul>
+																<?php } 
+																else{
+																	?>
+																	<ul class="list-inline"><li><?php echo $comAmis[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
+																		<span class="badge"><?php echo $comAmis[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
+																		<span class="badge"><?php echo $comAmis[$i]->nbUnLike ;?></span> </li>
+																	</ul>
+																<?php }?>
+															
 														</div>
 													</div>
 													<?php  } ?>
 												</div>
 											</div>
-											<?php 
-												$comPublic = $_SESSION['comPublic'];
-											?>
+											
 
 											<div class="panel panel-default">
-										<div class="panel-heading"><center>Les commentaires public </center></div>
-										<div class="panel-body">
-											
-											<?php
-											for($i = 0;$i<count($comPublic);$i++){
-												?>
-												<div class="row">
-													<div class="col-xs-12">
-														<h3> <?php echo 'Ecrit par : '.$comPublic[$i]->login .'  - Thème : '.$comPublic[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comPublic[$i]->typeRestriction; ?></h3>
-														<p><?php echo $comPublic[$i]->commentaire; ?></p>
-														<ul class="list-inline"><li><?php echo $comPublic[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
-															<span class="badge"><?php echo $comPublic[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
-															<span class="badge"><?php echo $comPublic[$i]->nbUnLike ;?></span> </li></ul>
+												<div class="panel-heading"><center>Les commentaires public </center></div>
+												<div class="panel-body">
+
+													<?php
+
+													$comPublic = $_SESSION['comPublic'];
+													for($i = 0;$i<count($comPublic);$i++){
+														?>
+														<div class="row">
+															<div class="col-xs-12">
+																<h3> <?php echo 'Ecrit par : '.$comPublic[$i]->login .'  - Thème : '.$comPublic[$i]->libelleTheme . "&nbsp&nbsp&nbsp&nbsp"."Restriction :" .  $comPublic[$i]->typeRestriction; ?></h3>
+																<p><?php echo $comPublic[$i]->commentaire; ?></p>
+																
+																<!-- traitaiment pour liker les commentaire que l'utilisateur peut liker ou unliker dans les commentaire public-->
+															<?php 
+																if(in_array($comPublic[$i]->idCommentaire,$_SESSION['listeComLikable'])){
+																	$cheminAjoutLike = "../modele/ajoutLike.php?login=".$_SESSION['login']."&idCommentaire=".$comPublic[$i]->idCommentaire;
+																	$cheminAjoutUnLike = "../modele/ajoutUnLike.php?login=".$_SESSION['login']."&idCommentaire=".$comPublic[$i]->idCommentaire;
+																?>
+																	<ul class="list-inline"><li><?php echo $comPublic[$i]->dateCreation; ?></li><li><a href=<?php echo $cheminAjoutLike; ?>>J'aime</a>  <span class="glyphicon glyphicon-thumbs-up"></span>
+																		<span class="badge"><?php echo $comPublic[$i]->nbLike ;?></span> </li><li><a href=<?php echo $cheminAjoutUnLike; ?>>Je n'aime pas</a> <span class="glyphicon glyphicon-thumbs-down"></span>
+																		<span class="badge"><?php echo $comPublic[$i]->nbUnLike ;?></span> </li>
+																	</ul>
+																<?php } 
+																else{
+																	?>
+																	<ul class="list-inline"><li><?php echo $comPublic[$i]->dateCreation; ?></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
+																		<span class="badge"><?php echo $comPublic[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
+																		<span class="badge"><?php echo $comPublic[$i]->nbUnLike ;?></span> </li>
+																	</ul>
+																<?php }?>
+
+																</div>
+															</div>
+															<?php  } ?>
 														</div>
 													</div>
-													<?php  } ?>
 												</div>
 											</div>
-										</div>
+										</div>	
+
 									</div>
-								</div>	
+								</div>
 
-							</div>
-						</div>
-
-					</div>	
-					<?php
-					include('../partie/footer.php');
-					?>
+							</div>	
+							<?php
+							include('../partie/footer.php');
+							?>
 
 
-				</body>
+						</body>
 
-				</html>
+						</html>
 
 
 
