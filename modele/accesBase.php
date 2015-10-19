@@ -56,7 +56,7 @@ function Inscription ($login,$nom, $prenom,$sexe,$jour,$mois,$annee,$email,$pwd)
 		global $db;
 		htmlspecialchars($theme);
 		$idTheme = getThemeId($theme);
-		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateC  , t.libelleTheme as libelleTheme
+		$q = $db->prepare('SELECT c.commentaire as commentaire , c.dateCreation as dateCreation  , t.libelleTheme as libelleTheme
 		 , r.typeRestriction as restriction, c.nbLike as nbLike,c.nbunLike as nbUnLike,c.login as login
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 

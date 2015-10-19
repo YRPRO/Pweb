@@ -11,7 +11,7 @@ if(isset($_POST['valide'])){
 	{
 		$errors=[];
 		//echapement html sur la variable $_POST
-		htmlspecialchars($_POST);
+		//htmlspecialchars($_POST);
 		extract($_POST);
 		
 
