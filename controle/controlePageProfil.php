@@ -7,6 +7,7 @@
 	//recuperation des commentaires pour l'utilisateur
 	$_SESSION['comPublic'] = recupCommentairePublicSansUtilisateur($_SESSION['login']);
 	$_SESSION['comUtilisateur'] = recupCommentaireUtilisateur($_SESSION['login']);
+	
 	$_SESSION['comAmis'] = recupComAmis($_SESSION['login']);
 	$_SESSION['libelleTheme'] = recupLibelleTheme();
 	$_SESSION['restriction'] = recupRestriction();

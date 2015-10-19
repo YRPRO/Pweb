@@ -11,13 +11,12 @@ function Inscription ($login,$nom, $prenom,$sexe,$jour,$mois,$annee,$email,$pwd)
 
 	function recupCommentaireUtilisateur($login){
 		global $db;
-		$q = $db->prepare('SELECT *
+		$q = $db->prepare('SELECT c.idCommentaire,c.commentaire,c.dateCreation,t.libelleTheme,r.typeRestriction,c.login,c.nbLike,c.nbUnLike
 							 FROM commentaire c,theme t , restriction r 
 							 WHERE c.idTheme = t.idTheme 
 						AND   c.idRestriction = r.idRestriction
 						AND   c.login = ? 	
 							');
-		//$q = $db->prepare('SELECT * FROM commentaire WHERE login = ?');
 		$q->execute([$login]);
 		$dataCom = $q->fetchALL(PDO::FETCH_OBJ);
 		$q->closeCursor();
@@ -476,5 +475,83 @@ function recupLibelleTheme(){
 				return true;
 			else
 				return false;
+	}
+	//fonction d'ajout d'un message privé dans la base de données
+	function ajoutMessagePrive($message,$login,$destinateur){
+		global $db;
+		$q = $db->prepare("INSERT INTO message (message,expediteur,destinateur) 
+							VALUES (?,?,?)
+        					");
+		$q->execute([$message,$login,$destinateur]);	
+	}
+	//fonction permettant de marquer un message comme etant lu
+	function marquerMessageLu($idMessage){
+		global $db;
+		$lu = true;
+		$q = $db->prepare('UPDATE message m
+        					SET m.lu = ?
+        					WHERE  m.idMessage = ? '
+        					);
+		$q->execute([$lu,$idMessage]);
+	}
+	//fonction permettant de repondre à un message
+	function repondreMessage($idMessage,$reponse,$login,$destinateur){
+		global $db;
+		marquerMessageLu($idMessage);
+		ajoutMessagePrive($reponse,$login,$destinateur);
+	}
+	//fonction de suppression d'un message privé
+	function supprimerMessage($idMessage){
+		global $db;
+		$q = $db->prepare("DELETE FROM message m
+							WHERE m.idMessage = ?
+						");
+		$q->execute([$idMessage]);
+	}
+	//fonction ajoutant un nouvelle demande
+	function nouvelleDemande($login,$destinateur){
+		global $db;
+		$q = $db->prepare("INSERT INTO demandeAmis (demandeur,destinateur) 
+							VALUES (?,?)
+        					");
+		$q->execute([$login,$destinateur]);
+	}
+	//fonction d'ajout amis
+	function ajoutAmis($login,$Amis){
+		lobal $db;
+		$q = $db->prepare("INSERT INTO contact (utilisateur,amis) 
+							VALUES (?,?)
+        					");
+		$q->execute([$login,$Amis]);
+	}
+	//fonction de recup des info d'une demande
+	function recupInfoDemandeAmis($idDemande){
+		global $db;
+		$q = $db->prepare("SELECT *
+							 FROM demandeAmis d
+							 WHERE d.idDemande = ?
+							 ");
+		$q->execute([$idDemande]);
+		$data = $q->fetchAll(PDO::FETCH_OBJ;
+		$q->closeCursor();	
+		return $data;
+	}
+	
+	//fonction permettant d'accepter une demande en amis
+	function accpeterDemandeAmis($idDemande){
+		global $db;
+		$donneDemande = recupInfoDemandeAmis($idDemande);
+		$login = $donneDemande[0]->destinateur;
+		$amis =$donneDemande[0]->demandeur;
+		ajoutAmis($login,$amis);
+
+	}
+	//fonction de suppression d'une demande une fois celle ci accepter
+	function supprimerDemandeAmis($idDemande){
+		global $db;
+		$q = $db->prepare("DELETE FROM demandeAmis d
+							WHERE d.idCommentaire = ?
+						");
+		$q->execute([$idDemande]);
 	}
 ?>
