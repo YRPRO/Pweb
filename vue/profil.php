@@ -96,19 +96,26 @@ session_start();
 					<div class="profile-usermenu">
 						<ul class="nav">
 							<li class="active">
-								<a href="#commentaires">
+								<a href="../controle/controlePageProfil.php">
 									<i class="glyphicon glyphicon-home"></i>
 									Commentaires</a>
 								</li>
+								
 								<li>
-
 									<!-- Une ancre sur la même page ou y aura afficher ses amis -->
-									<a href="#amis">
+									<a href="../controle/controlePageAmis.php">
 										<i class="glyphicon glyphicon-user"></i>
 										Mes amis</a><br>
 									</li>
 
+								<li>
+									<!-- Une ancre sur la même page ou y aura afficher ses amis -->
+									<a href="../controle/controlePageMessage.php">
+										<i class="glyphicon glyphicon-user"></i>
+										Mes messages privé</a><br>
+									</li>
 								</ul>
+
 							</div>
 							<!-- END MENU -->
 

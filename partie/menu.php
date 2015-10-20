@@ -12,10 +12,17 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-            <li><a href="#about">A propos</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <?php 
+            if(isset($_SESSION['login'])){
+              require('menuser.php');
+            }
+            else{ ?>
+              <li class="active"><a href="../index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+             
 
+          <?php  }
+          ?>
+            
           </ul>
         </div><!--/.nav-collapse -->
       </div>

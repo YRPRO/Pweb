@@ -12,8 +12,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../vue/filUser.php"><span class="glyphicon glyphicon-bookmark"></span>Fil actualité</a></li>
-            <li><a href="../vue/profil.php">Mon espace</a></li>
+            <li class="active"><a href="../controle/controlePageProfil.php">Page profil</a></li>
             <li><a href="../controle/Deconnexion.php">Deconnexion</a></li>
 
           </ul>

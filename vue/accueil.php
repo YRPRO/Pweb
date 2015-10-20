@@ -38,9 +38,18 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="../index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-            <li><a href="#">A propos</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <?php 
+            if(isset($_SESSION['login'])){
+              ?>
+              <li class="active"><a href="../controle/controlePageProfil.php">Page profil</a></li>
+            <li><a href="../controle/Deconnexion.php">Deconnexion</a></li>
+           <?php }
+            else{ ?>
+              <li class="active"><a href="../index.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+             
+
+          <?php  }
+          ?>
 
           </ul>
         </div>

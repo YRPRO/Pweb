@@ -148,6 +148,19 @@ function recupLibelleTheme(){
 		$q->closeCursor();	
 		return $dataUtilisateurPlusActif[0]->login;
 	}
+	//fonction de recuperation de tout les utilisateur
+	function recupListeUtilisateur($login){
+		global $db;
+		$q = $db->prepare('SELECT *
+							 FROM utilisateur u
+							 WHERE u.login != ?
+							 
+							');
+		$q->execute([$login]);
+		$data = $q->fetchALL(PDO::FETCH_OBJ);
+		$q->closeCursor();	
+		return $data;
+	}
 	//fonction de recuperation de la restiction d'un commentaire
 	function recupRestrictionCom($idCommentaire){
 		global $db;
@@ -491,8 +504,8 @@ function recupLibelleTheme(){
 	//fonction d'ajout d'un message privé dans la base de données
 	function ajoutMessagePrive($message,$login,$destinateur){
 		global $db;
-		$q = $db->prepare("INSERT INTO message (message,expediteur,destinateur) 
-							VALUES (?,?,?)
+		$q = $db->prepare("INSERT INTO message (message,expediteur,destinateur,dateCreation) 
+							VALUES (?,?,?,CURDATE())
         					");
 		$q->execute([$message,$login,$destinateur]);	
 	}
@@ -515,10 +528,22 @@ function recupLibelleTheme(){
 	//fonction de suppression d'un message privé
 	function supprimerMessage($idMessage){
 		global $db;
-		$q = $db->prepare("DELETE FROM message m
-							WHERE m.idMessage = ?
+		$q = $db->prepare("DELETE FROM message 
+							WHERE idMessage = ?
 						");
 		$q->execute([$idMessage]);
+	}
+	//fonction de recuperation des demande pour un utilisateur
+	function recupDemandeUtilisateur($login){
+		global $db;
+		$q = $db->prepare("SELECT *
+							 FROM demandeAmis d
+							 WHERE d.destinateur = ?
+							 ");
+		$q->execute([$login]);
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
+		$q->closeCursor();	
+		return $data;
 	}
 	//fonction ajoutant un nouvelle demande
 	function nouvelleDemande($login,$destinateur){
@@ -550,7 +575,7 @@ function recupLibelleTheme(){
 	}
 	
 	//fonction permettant d'accepter une demande en amis
-	function accpeterDemandeAmis($idDemande){
+	function accepterDemandeAmis($idDemande){
 		global $db;
 		$donneDemande = recupInfoDemandeAmis($idDemande);
 		$login = $donneDemande[0]->destinateur;
@@ -561,8 +586,8 @@ function recupLibelleTheme(){
 	//fonction de suppression d'une demande une fois celle ci accepter
 	function supprimerDemandeAmis($idDemande){
 		global $db;
-		$q = $db->prepare("DELETE FROM demandeAmis d
-							WHERE d.idCommentaire = ?
+		$q = $db->prepare("DELETE FROM demandeAmis 
+							WHERE idDemande = ?
 						");
 		$q->execute([$idDemande]);
 	}
