@@ -476,6 +476,18 @@ function recupLibelleTheme(){
 			else
 				return false;
 	}
+	//fonction de recuperation des messages d'un utilisateur
+	function recupMessageUtilisateur($login){
+		global $db;
+		$q = $db->prepare("SELECT *
+							 FROM message m
+							 WHERE m.destinateur = ?
+							 ");
+		$q->execute([$login]);
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
+		$q->closeCursor();	
+		return $data;
+	}
 	//fonction d'ajout d'un message privé dans la base de données
 	function ajoutMessagePrive($message,$login,$destinateur){
 		global $db;
@@ -518,7 +530,7 @@ function recupLibelleTheme(){
 	}
 	//fonction d'ajout amis
 	function ajoutAmis($login,$Amis){
-		lobal $db;
+		global $db;
 		$q = $db->prepare("INSERT INTO contact (utilisateur,amis) 
 							VALUES (?,?)
         					");
@@ -532,7 +544,7 @@ function recupLibelleTheme(){
 							 WHERE d.idDemande = ?
 							 ");
 		$q->execute([$idDemande]);
-		$data = $q->fetchAll(PDO::FETCH_OBJ;
+		$data = $q->fetchAll(PDO::FETCH_OBJ);
 		$q->closeCursor();	
 		return $data;
 	}
