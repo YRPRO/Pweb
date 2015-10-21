@@ -35,7 +35,8 @@ session_start();
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<img src= <?php echo $_SESSION['cheminPhoto']; ?> class="img-responsive" alt="photo de profil">
+						<img src= <?php echo $_SESSION['cheminPhoto']
+						 ?> class="img-responsive" alt="photo de profil">
 						<!-- <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">-->
 					</div>
 					<!-- END SIDEBAR USERPIC -->
@@ -47,7 +48,9 @@ session_start();
 						<!-- Afficher l'adresse mail de l'utilisateur connecté -->
 						<div class="profile-usertitle-job">
 							<?php
-							$infoUser =  $_SESSION['infoUtilisateur'];
+						
+							
+								$infoUser =  $_SESSION['infoUtilisateur'];
 							//echo $infoUser[0]->email ; 
 							?>
 						</div>

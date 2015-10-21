@@ -24,10 +24,10 @@ if(isset($_POST['valide'])){
 		if (verifPresent($login)){
 			$errors[]="Le login existe deja";
 		}
-/*-----------A activer a la fin du projet sinon (desactiver pour les tests)
-if (filter_var($email,FILTER_VALIDATE_EMAIL)){
-	$errors="Votre adresse email n'est pas valide";
-}*/
+
+if (!filter_var($email,FILTER_VALIDATE_EMAIL)){
+	$errors[]="Votre adresse email n'est pas valide";
+}
 if(mb_strlen($pwd)<6){
 	$errors[]="Votre mot de passe est trop court (Minmum 6 caractères)";
 }else {
@@ -43,7 +43,7 @@ if (count($errors)==0) {
 	//debut de la session utilisateur directement après inscription
 	session_start();
 	$_SESSION['login'] = $login;
-	header('location:../vue/profil.php');
+	header('location:../controle/controlePageProfil.php');
 
 }
 
