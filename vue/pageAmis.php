@@ -15,9 +15,9 @@ session_start();
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-     <script src="js/bootstrap-select.js"></script>
-    <script src="/path/to/jquery.mCustomScrollbar.concat.min.js"></script>
-   
+	<script src="js/bootstrap-select.js"></script>
+	<script src="/path/to/jquery.mCustomScrollbar.concat.min.js"></script>
+
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 	<!--Notre style css -->
@@ -116,65 +116,82 @@ session_start();
 												<h3 class="panel-title">Envoyer une demande d'ajout</h3>
 											</div>
 											<div class="panel-body">
-											<form role="form" method="post" action ="../controle/demandeAmis.php" >
-												Choisir un contact :
-												<select class="selectpicker" name="utilisateur" id="utilisateur">
-												<?php 
-													$listeUtilisateur = $_SESSION['listeUtilisateur'] ;
-													for($i=0;$i<count($listeUtilisateur);$i++){
-                                      					echo "<option value = ". $listeUtilisateur[$i]->login ." >" . $listeUtilisateur[$i]->login ."</option>";
-                                   					 }
-												?>
-												</select> 
-											<button type="submit" class="btn btn-primary btn-sm"  name="envoiDemande">Valider</button>
+												<form role="form" method="post" action ="../controle/demandeAmis.php" >
+													Choisir un contact :
+													<select class="selectpicker" name="utilisateur" id="utilisateur">
+														<?php 
+														$listeUtilisateur = $_SESSION['listeUtilisateur'] ;
+														for($i=0;$i<count($listeUtilisateur);$i++){
+															echo "<option value = ". $listeUtilisateur[$i]->login ." >" . $listeUtilisateur[$i]->login ."</option>";
+														}
+														?>
+													</select> 
+													<button type="submit" class="btn btn-primary btn-sm"  name="envoiDemande">Valider</button>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
 
-								<div class="col-md-5">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h3 class="panel-title">Vos demande en cours</h3>
-										</div>
-										<div class="panel-body">
-										<?php 
-											$listeDemande = $_SESSION['demande'];
+										<div class="col-md-5">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Vos demande en cours</h3>
+												</div>
+												<div class="panel-body">
+													<?php 
+													$listeDemande = $_SESSION['demande'];
 
-											for($i = 0;$i<count($listeDemande);$i++){
-												?>
-												<div class="panel panel-default">
- 												 <div class="panel-heading">Demandeur : <?php echo $listeDemande[$i]->demandeur ?></div>
-												  <div class="panel-body">
-												   <center>
-												   <?php
-												   		$accepter = "../controle/gestionDemande.php?id=" .  $listeDemande[$i]->idDemande . "&Reponse=a";
-												   		$refuser = "../controle/gestionDemande.php?id=" . $listeDemande[$i]->idDemande  . "&Reponse=r" ;
-												   ?>
-												   	<a href=<?php echo $accepter ?>>Accepter</a>
-												   	<a href=<?php echo $refuser ?>>Refuser</a>
-												   </center>
-												  </div>
+													for($i = 0;$i<count($listeDemande);$i++){
+														?>
+														<div class="panel panel-default">
+															<div class="panel-heading">Demandeur : <?php echo $listeDemande[$i]->demandeur ?></div>
+															<div class="panel-body">
+																<center>
+																	<?php
+																	$accepter = "../controle/gestionDemande.php?id=" .  $listeDemande[$i]->idDemande . "&Reponse=a";
+																	$refuser = "../controle/gestionDemande.php?id=" . $listeDemande[$i]->idDemande  . "&Reponse=r" ;
+																	?>
+																	<a href=<?php echo $accepter ?>>Accepter</a>
+																	<a href=<?php echo $refuser ?>>Refuser</a>
+																</center>
+															</div>
+														</div>
+
+
+														<?php }
+														?>
+																										
+													</div>
+														
+								
 												</div>
 
-									<?php }
-										?>
+											</div>
+											<div class="list-group col-md-6">
+											<a  class="list-group-item active">
+													Mes amis 
+												</a>
+												<?php
+												$listeAmis = $_SESSION['listeAmis'];
 
+													for($i=0;$i<count($listeAmis);$i++){
+														?>
+														
+														<a  class="list-group-item"> <?php echo $listeAmis[$i]->amis;?> </a>
+														 
+													<?php } ?>
+												
+											
+								</div>
+											
 										</div>
 									</div>
-								</div>
+								</div>	
+								
+									
 
-							</div>
-						</div>
+							</body>
 
-					</div>	
-					<?php
-
-					?>
-
-
-				</body>
-
-				</html>
+							</html>
 
 
 

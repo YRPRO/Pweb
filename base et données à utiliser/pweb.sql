@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 19 Octobre 2015 à 21:29
+-- Généré le :  Mer 21 Octobre 2015 à 09:00
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -116,7 +116,16 @@ CREATE TABLE IF NOT EXISTS `demandeamis` (
   PRIMARY KEY (`idDemande`),
   KEY `fk_demandeur_amis` (`demandeur`),
   KEY `fk_destinateur_amis` (`destinateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `demandeamis`
+--
+
+INSERT INTO `demandeamis` (`idDemande`, `demandeur`, `destinateur`) VALUES
+(2, 'a', 'test'),
+(5, 'test', 'a'),
+(6, 'test2', 'a');
 
 -- --------------------------------------------------------
 
@@ -158,12 +167,24 @@ CREATE TABLE IF NOT EXISTS `message` (
   `message` varchar(200) DEFAULT NULL,
   `expediteur` varchar(15) CHARACTER SET latin1 DEFAULT NULL,
   `destinateur` varchar(15) CHARACTER SET latin1 DEFAULT NULL,
+  `dateCreation` date NOT NULL,
   `lu` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idMessage`),
   KEY `expediteur` (`expediteur`,`destinateur`),
   KEY `destinateur` (`destinateur`),
   KEY `destinateur_2` (`destinateur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Contenu de la table `message`
+--
+
+INSERT INTO `message` (`idMessage`, `message`, `expediteur`, `destinateur`, `dateCreation`, `lu`) VALUES
+(4, 'message test c -> a', 'c', 'a', '2015-10-20', 0),
+(8, 'message test a -> b reponse', 'a', 'b', '2015-10-20', 0),
+(9, 'j''ai bien recu ta reponse  utilisateur a', 'b', 'a', '2015-10-20', 0),
+(10, 'message de test a -> f', 'a', 'f', '2015-10-20', 0),
+(11, 'bonjour A->f', 'a', 'f', '2015-10-21', 0);
 
 -- --------------------------------------------------------
 

@@ -110,7 +110,7 @@
                                         <div class="modal-body">
                                           <!-- Insertion du formulaire d'ajout d'une image-->
                                           
-                                          ?>
+                                          
                                           <form role="form" method="post" action ="../controle/controleRepMessage.php" >
                                             <div class="form-group">
                                               <label for="login" >Message</label>

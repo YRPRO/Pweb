@@ -9,9 +9,11 @@
 
 	$_SESSION['listeUtilisateur'] = array();
 	for($i=0;$i<count($listeUtilisateur);$i++){
+	if(count($listeAmis)>0){
 		if($listeUtilisateur[$i]->login == $listeAmis[$i]->amis){
 
 		}
+	}
 	else{
 		array_push($_SESSION['listeUtilisateur'],$listeUtilisateur[$i]);
 	}
