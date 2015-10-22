@@ -8,15 +8,28 @@
 	$_SESSION['listeAmis'] = $listeAmis;
 
 	$_SESSION['listeUtilisateur'] = array();
-	for($i=0;$i<count($listeUtilisateur);$i++){
-	if(count($listeAmis)>0){
-		if($listeUtilisateur[$i]->login == $listeAmis[$i]->amis){
+	$amis =array();
+	for($j = 0;$j<count($listeAmis);$j++)
+		array_push($amis,$listeAmis[$j]->amis);
 
+
+
+	for($i=0;$i<count($listeUtilisateur);$i++){
+		if(count($listeAmis)>0){
+			//var_dump($listeAmis);
+			//die();
+			
+			if(in_array($listeUtilisateur[$i]->login, $amis)){	
+
+			}
+			else{
+				array_push($_SESSION['listeUtilisateur'],$listeUtilisateur[$i]);
+			}
+		
 		}
-	}
-	else{
-		array_push($_SESSION['listeUtilisateur'],$listeUtilisateur[$i]);
-	}
+		else
+			$_SESSION['listeUtilisateur']=$listeUtilisateur;
+	
 	}
 	
 

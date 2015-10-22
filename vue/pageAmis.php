@@ -52,7 +52,7 @@ session_start();
 						<div class="profile-usertitle-job">
 							<?php
 							$infoUser =  $_SESSION['infoUtilisateur'];
-							echo $infoUser[0]->email ; 
+							//echo $infoUser[0]->email ; 
 							?>
 						</div>
 					</div>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 21 Octobre 2015 à 09:00
+-- Généré le :  Jeu 22 Octobre 2015 à 20:10
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   KEY `fk_commentaire_idtheme` (`idTheme`),
   KEY `fk_commentaire_restriction` (`idRestriction`),
   KEY `fk_commentaire_idutilisateur` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Contenu de la table `commentaire`
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
 INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `dateCreation`, `idTheme`, `idRestriction`, `login`, `nbLike`, `nbUnLike`) VALUES
 (1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 1, 'a', 20, 10),
 (2, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 2, 2, 'a', 0, 0),
-(3, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 3, 3, 'a', 0, 0),
+(3, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 3, 3, 'a', 1, 0),
 (4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 4, 1, 'b', 0, 0),
 (5, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 5, 2, 'b', 1, 0),
 (6, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 6, 3, 'b', 1, 0),
@@ -59,7 +59,7 @@ INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `dateCreation`, `idTh
 (11, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 11, 2, 'd', 1, 0),
 (12, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 12, 3, 'd', 0, 0),
 (13, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 13, 1, 'e', 0, 0),
-(14, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 14, 2, 'e', 0, 0),
+(14, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 14, 2, 'e', 1, 0),
 (15, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 15, 3, 'e', 0, 0),
 (16, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 1, 'f', 0, 0),
 (17, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.\r', '2015-10-02', 1, 2, 'f', 0, 0),
@@ -75,7 +75,8 @@ INSERT INTO `commentaire` (`idCommentaire`, `commentaire`, `dateCreation`, `idTh
 (27, 'test commentaire 19/10', '2015-10-19', 1, 1, 'b', 0, 0),
 (28, 'test date du jour 19/10/2015', '2015-10-19', 12, 2, 'a', 0, 0),
 (29, 'test date date date date', '2015-10-19', 5, 3, 'a', 0, 0),
-(30, 'test 19/10/2015', '2015-10-19', 17, 1, 'a', 0, 0);
+(30, 'test 19/10/2015', '2015-10-19', 17, 1, 'a', 0, 0),
+(31, 'nouveau commentaire de test 3', '2015-10-21', 6, 1, 'test3', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -95,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
 --
 
 INSERT INTO `contact` (`utilisateur`, `amis`) VALUES
+('test', 'a'),
 ('a', 'b'),
 ('a', 'c'),
 ('a', 'd'),
@@ -116,16 +118,16 @@ CREATE TABLE IF NOT EXISTS `demandeamis` (
   PRIMARY KEY (`idDemande`),
   KEY `fk_demandeur_amis` (`demandeur`),
   KEY `fk_destinateur_amis` (`destinateur`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `demandeamis`
 --
 
 INSERT INTO `demandeamis` (`idDemande`, `demandeur`, `destinateur`) VALUES
-(2, 'a', 'test'),
 (5, 'test', 'a'),
-(6, 'test2', 'a');
+(6, 'test2', 'a'),
+(7, 'test3', 'b');
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `likeparutilisateur` (
   PRIMARY KEY (`idLikeParUtilisateur`),
   KEY `fk_idCom` (`idCommentaire`),
   KEY `fk_login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `likeparutilisateur`
@@ -154,7 +156,9 @@ INSERT INTO `likeparutilisateur` (`idLikeParUtilisateur`, `idCommentaire`, `logi
 (5, 8, 'a'),
 (6, 6, 'a'),
 (7, 11, 'a'),
-(8, 9, 'a');
+(8, 9, 'a'),
+(9, 3, 'test3'),
+(10, 14, 'a');
 
 -- --------------------------------------------------------
 
@@ -204,8 +208,9 @@ CREATE TABLE IF NOT EXISTS `photoprofil` (
 --
 
 INSERT INTO `photoprofil` (`login`, `chemin`) VALUES
-('a', '../imageProfil/a.png'),
-('b', '../imageProfil/b.png');
+('a', '../imageProfil/a.jpg'),
+('b', '../imageProfil/b.png'),
+('test3', '../imageProfil/test3.jpg');
 
 -- --------------------------------------------------------
 
@@ -296,8 +301,10 @@ INSERT INTO `utilisateur` (`login`, `nom`, `prenom`, `sexe`, `dateN`, `email`, `
 ('d', 'd', 'd', '', '0000-00-00', 'd@d.fr', 'd', '2015-10-02'),
 ('e', 'e', 'e', '', '0000-00-00', 'e@e.fr', 'e', '2015-10-02'),
 ('f', 'f', 'f', '', '0000-00-00', 'f@f.fr', 'f', '2015-10-02'),
+('tameur', 'tameur', 'tameur', 'F', '0000-00-00', 'takner_75@hotmail.fr', '123456', '2015-10-21'),
 ('test', 'test', 'test', 'H', '0000-00-00', 'test@test.fr', '123456', '2015-10-16'),
-('test2', 'test', 'test', 'H', '0000-00-00', 'test2@test.fr', '123456', '2015-10-16');
+('test2', 'test', 'test', 'H', '0000-00-00', 'test2@test.fr', '123456', '2015-10-16'),
+('test3', 'test3', 'test3', 'F', '0000-00-00', 'younes.r78@gmail.fr', '123456', '2015-10-21');
 
 --
 -- Contraintes pour les tables exportées

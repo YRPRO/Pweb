@@ -55,7 +55,7 @@
       <div class="col-xs-12">
         <h3> <?php echo 'Ecrit par : '.$coms[$i]->login.'  - Thème : '.$coms[$i]->libelleTheme;  ?></h3>
         <p><?php echo $coms[$i]->commentaire; ?></p>
-        <p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+        
         <ul class="list-inline"><li><a href="#"><?php echo $coms[$i]->dateCreation; ?></a></li><li>J'aime  <span class="glyphicon glyphicon-thumbs-up"></span>
          <span class="badge"><?php echo $coms[$i]->nbLike ;?></span> </li><li>Je n'aime pas <span class="glyphicon glyphicon-thumbs-down"></span>
          <span class="badge"><?php echo $coms[$i]->nbUnLike ;?></span> </li></ul>
